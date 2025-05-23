@@ -8,14 +8,18 @@ import 'home_data_source_repo.dart';
 
 @Injectable(as: HomeDataSourceRepo)
 class HomeDataSourceRepoImpl implements HomeDataSourceRepo {
-  ApiService apiService;
+ final ApiService apiService;
 
   HomeDataSourceRepoImpl(this.apiService);
 
   @override
-  Future<Result<HomeEntity?>> getHomeData() {
-    // TODO: implement getHomeData
-    throw UnimplementedError();
+  Future<Result<GetOrdersDeliveryEntity?>> getOrdersDelivery() {
+   return executeApi(()async {
+     var response = await apiService.getOrdersDelivery();
+     return response?.toGetOrdersDeliveryEntity();
+   },);
   }
+
+
 
 }

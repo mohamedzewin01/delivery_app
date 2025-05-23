@@ -7,6 +7,6 @@ class ApiConstants {
 
   // static const String home = "home/home_view_v2";
 
-  static const String home = "home/home_view_3";
+  static const String orderDelivery = "orders/order_delivery.php";
 
 }

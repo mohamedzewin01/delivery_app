@@ -1,0 +1,122 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'get_orders_delivery.dart';
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+GetOrdersDelivery _$GetOrdersDeliveryFromJson(Map<String, dynamic> json) =>
+    GetOrdersDelivery(
+      message: json['message'] as String?,
+      orders:
+          (json['orders'] as List<dynamic>?)
+              ?.map((e) => Orders.fromJson(e as Map<String, dynamic>))
+              .toList(),
+    );
+
+Map<String, dynamic> _$GetOrdersDeliveryToJson(GetOrdersDelivery instance) =>
+    <String, dynamic>{'message': instance.message, 'orders': instance.orders};
+
+Orders _$OrdersFromJson(Map<String, dynamic> json) => Orders(
+  orderNumber: json['order_number'] as String?,
+  idOrder: (json['id_order'] as num?)?.toInt(),
+  status: json['status'] as String?,
+  totalPrice: (json['totalPrice'] as num?)?.toDouble(),
+  orderDate: json['order_date'] as String?,
+  deliveryTime: json['delivery_time'] as String?,
+  isActive: (json['is_active'] as num?)?.toInt(),
+  createdAt: json['created_at'] as String?,
+  updatedAt: json['updated_at'] as String?,
+  orderItems:
+      (json['order_items'] as List<dynamic>?)
+          ?.map((e) => OrderItems.fromJson(e as Map<String, dynamic>))
+          .toList(),
+  user:
+      json['user'] == null
+          ? null
+          : User.fromJson(json['user'] as Map<String, dynamic>),
+  userAddress:
+      json['user_address'] == null
+          ? null
+          : UserAddress.fromJson(json['user_address'] as Map<String, dynamic>),
+);
+
+Map<String, dynamic> _$OrdersToJson(Orders instance) => <String, dynamic>{
+  'order_number': instance.orderNumber,
+  'id_order': instance.idOrder,
+  'status': instance.status,
+  'totalPrice': instance.totalPrice,
+  'order_date': instance.orderDate,
+  'delivery_time': instance.deliveryTime,
+  'is_active': instance.isActive,
+  'created_at': instance.createdAt,
+  'updated_at': instance.updatedAt,
+  'order_items': instance.orderItems,
+  'user': instance.user,
+  'user_address': instance.userAddress,
+};
+
+OrderItems _$OrderItemsFromJson(Map<String, dynamic> json) => OrderItems(
+  productId: (json['product_id'] as num?)?.toInt(),
+  title: json['title'] as String?,
+  price: (json['price'] as num?)?.toInt(),
+  priceAfterDiscount: (json['priceAfterDiscount'] as num?)?.toInt(),
+  discount: (json['discount'] as num?)?.toInt(),
+  quantity: (json['quantity'] as num?)?.toInt(),
+  totalPrice: (json['totalPrice'] as num?)?.toInt(),
+  imgCover: json['imgCover'] as String?,
+);
+
+Map<String, dynamic> _$OrderItemsToJson(OrderItems instance) =>
+    <String, dynamic>{
+      'product_id': instance.productId,
+      'title': instance.title,
+      'price': instance.price,
+      'priceAfterDiscount': instance.priceAfterDiscount,
+      'discount': instance.discount,
+      'quantity': instance.quantity,
+      'totalPrice': instance.totalPrice,
+      'imgCover': instance.imgCover,
+    };
+
+User _$UserFromJson(Map<String, dynamic> json) => User(
+  id: (json['id'] as num?)?.toInt(),
+  name: json['name'] as String?,
+  phone: json['phone'] as String?,
+  email: json['email'] as String?,
+);
+
+Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  'phone': instance.phone,
+  'email': instance.email,
+};
+
+UserAddress _$UserAddressFromJson(Map<String, dynamic> json) => UserAddress(
+  id: (json['id'] as num?)?.toInt(),
+  title: json['title'] as String?,
+  street: json['street'] as String?,
+  city: json['city'] as String?,
+  lat: json['lat'] as String?,
+  long: json['long'] as String?,
+  details: json['details'] as String?,
+  deliveryAreaId: (json['delivery_area_id'] as num?)?.toInt(),
+  isActive: (json['isActive'] as num?)?.toInt(),
+  createdAt: json['created_at'] as String?,
+);
+
+Map<String, dynamic> _$UserAddressToJson(UserAddress instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'title': instance.title,
+      'street': instance.street,
+      'city': instance.city,
+      'lat': instance.lat,
+      'long': instance.long,
+      'details': instance.details,
+      'delivery_area_id': instance.deliveryAreaId,
+      'isActive': instance.isActive,
+      'created_at': instance.createdAt,
+    };

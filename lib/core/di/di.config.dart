@@ -27,7 +27,9 @@ import '../../features/home/data/data_sources/home_data_source_repo_impl.dart'
     as _i985;
 import '../../features/home/data/repo_impl/home_repo_impl.dart' as _i886;
 import '../../features/home/domain/repo/home_repo.dart' as _i280;
-import '../../features/home/domain/use_cases/home_use_case.dart' as _i933;
+import '../../features/home/domain/usecases/home_usecase_repo.dart' as _i355;
+import '../../features/home/domain/usecases/home_usecase_repo_impl.dart'
+    as _i465;
 import '../../features/home/presentation/cubit/home_cubit.dart' as _i9;
 import '../../features/test/data/datasources/test_datasource_repo.dart'
     as _i539;
@@ -64,16 +66,16 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i539.TestDatasourceRepo>(
       () => _i28.TestDatasourceRepoImpl(gh<_i680.ApiService>()),
     );
-    gh.factory<_i933.HomeUseCase>(
-      () => _i933.HomeUseCase(gh<_i280.HomeRepo>()),
-    );
-    gh.factory<_i9.HomeCubit>(() => _i9.HomeCubit(gh<_i933.HomeUseCase>()));
     gh.factory<_i53.TestUseCaseRepo>(
       () => _i352.TestUseCase(gh<_i403.TestRepository>()),
     );
     gh.factory<_i69.AuthDataSourcesRepo>(
       () => _i552.AuthDataSourcesRpoImpl(gh<_i680.ApiService>()),
     );
+    gh.factory<_i355.HomeUseCaseRepo>(
+      () => _i465.HomeUseCase(gh<_i280.HomeRepo>()),
+    );
+    gh.factory<_i9.HomeCubit>(() => _i9.HomeCubit(gh<_i355.HomeUseCaseRepo>()));
     gh.factory<_i170.AuthRepo>(
       () => _i279.AuthRepoImpl(gh<_i69.AuthDataSourcesRepo>()),
     );

@@ -32,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
               children: [
                 Spacer(),
                 Image.asset(
-                  Assets.logo3,
+                  Assets.logo,
                   scale: 2.5,
                 ),
 

@@ -34,7 +34,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
 
         items: [
           BottomNavigationBarItem(
-            icon: buildIcon(Assets.homeSvg, 0, currentIndex),
+            icon: buildIcon(Assets.categoriesSvg, 0, currentIndex),
             label: AppLocalizations.of(context)!.home,
           ),
           BottomNavigationBarItem(
@@ -43,7 +43,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
           ),
 
           BottomNavigationBarItem(
-            icon: buildIcon(Assets.profileSvg, 4, currentIndex),
+            icon: buildIcon(Assets.categoriesSvg, 4, currentIndex),
             label: AppLocalizations.of(context)!.user,
           ),
         ],

@@ -7,14 +7,14 @@ import '../../domain/repo/home_repo.dart';
 
 @Injectable(as: HomeRepo)
 class HomeRepoImpl implements HomeRepo {
-  HomeDataSourceRepo homeDataSourceRepo;
+ final HomeDataSourceRepo homeDataSourceRepo;
 
   HomeRepoImpl(this.homeDataSourceRepo);
 
+
   @override
-  Future<Result<HomeEntity?>> getHomeData() {
-    // TODO: implement getHomeData
-    throw UnimplementedError();
+  Future<Result<GetOrdersDeliveryEntity?>> getOrdersDelivery() {
+ return homeDataSourceRepo.getOrdersDelivery();
   }
 
 
