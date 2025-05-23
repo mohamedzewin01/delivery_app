@@ -1,0 +1,18 @@
+{
+  "@@locale": "en",
+  "helloWorld": "Hello World!",
+  "name": "Ahmed",
+  "home": "home",
+  "appName": "Fada Alhalij",
+  "category": "category",
+  "cart": "cart",
+  "categories": "categories",
+  "bestDeals": "Best Deals \uD83D\uDD25",
+  "seeAll": "See All",
+  "discount": "off",
+  "whatAreSearch": "What are u looking for ?",
+  "waiting": "Wait",
+  "user": "user",
+  "search": "search"
+
+}
