@@ -1,278 +1,125 @@
+import 'dart:io';
 
-import 'dart:ui';
-import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:delivery/core/api/api_constants.dart';
-import 'package:http/http.dart' as http;
-import 'package:share_plus/share_plus.dart';
+
+import 'package:delivery/core/resources/color_manager.dart';
+import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+
 
 class CustomLaunchUrl {
-  static Future<void> launchUrlShare({
-    required String title,
-    required String urlPreview,
-    String? details,
-    String? phone,
-  }) async {
+  ///launchUrlWhatsapp
+  static Future<void> launchUrlWhatsapp(
+      {required numPhone,
+        required String name,
+      }) async {
+// String num='966';
+    var androidUrl =
+        "whatsapp://send?phone=+$numPhone&text=Flowery rider \n $name\n"
+    // " $linkImage$urlPreview "
+        ;
+    var iosUrl = "https://wa.me/$numPhone?text=${Uri.parse(name)}";
+    var desktopUrl =
+        "https://wa.me/$numPhone/?text=${Uri.parse(name)}&type=+$numPhone&app_absent=1";
+    var webUrl = "https://web.whatsapp.com/send?phone=+$numPhone&text=$name";
+
     try {
-      // بناء رابط الصورة
-      Uri url = Uri.parse('${ApiConstants.baseUrlImage}$urlPreview');
-
-      // تحميل الصورة من الرابط
-      var response = await http.get(url);
-
-      // مشاركة الصورة مع النصوص
-      await Share.shareXFiles(
-        [
-          XFile.fromData(
-            response.bodyBytes,
-            name: title,
-            mimeType: 'image/png',
-          ),
-        ],
-        subject: 'فضاء الخليج - ${title.trim()}',
-        text: '''
-         ---------------         
-         
-        📌 ${title.trim()}
-          
-          📄 التفاصيل:
-          $details
-          
-          📞 للتواصل: 0547884523
-          
-                   ---------------         
-          
-          🌐 https://marketfadaalhalij.artawiya.com/
-      
-      تطبيق فضاء الخليج
-            ''',
-        sharePositionOrigin: Rect.fromCircle(
-          center: Offset(10, 10),
-          radius: 20,
-        ),
-      );
+      if (Platform.isIOS) {
+        await launchUrl(
+          Uri.parse(iosUrl),
+        );
+      } else if (Platform.isAndroid) {
+        await launchUrl(Uri.parse(androidUrl));
+      } else if (Platform.isWindows) {
+        await launchUrl(Uri.parse(desktopUrl));
+      } else {
+        await launchUrl(Uri.parse(webUrl));
+      }
     } catch (e) {
-      print('Error while sharing: $e');
+      print(e.toString());
     }
   }
 
 
-  static Future<void> launchUrlShareApp({
-    required String title,
-    required String urlPreview,
-    String? details,
-    String? phone,
-  }) async {
-    final String shareText = '''
-           
-📌 ${title.trim()}
 
-📄 التفاصيل:
-$details
-
-📞 للتواصل: $phone
-            ⚡💯💯💯💯💯💯💯⚡
-🌐 https://marketfadaalhalij.artawiya.com/
-           ⚡💯💯💯💯💯💯💯⚡
-
-      ''';
-
-    if (kIsWeb) {
-      // مشاركة النصوص والرابط فقط على الويب
-      await Share.share(shareText);
-    } else {
-      try {
-        // بناء رابط الصورة
-        Uri url = Uri.parse('${ApiConstants.baseUrlImage}$urlPreview');
-
-        // تحميل الصورة
-        var response = await http.get(url);
-
-        // مشاركة الصورة مع النصوص على المنصات الأخرى
-        await Share.shareXFiles(
-          [
-            XFile.fromData(
-              response.bodyBytes,
-              name: title,
-              mimeType: 'image/png',
-            ),
-          ],
-          subject: 'فضاء الخليج - ${title.trim()}',
-          text: shareText,
-          sharePositionOrigin: Rect.fromCircle(
-            center: Offset(10, 10),
-            radius: 20,
-          ),
-        );
-      } catch (e) {
-      throw('Error while sharing: $e');
+  ///launchUrlCall
+  static Future<void> launchUrlCall(
+      {required String numPhone, String? messageSms}) async {
+    var androidUrl = 'tel:$numPhone';
+    var iosUrl = 'tel:$numPhone';
+    try {
+      if (Platform.isIOS) {
+        await launchUrl(Uri.parse(iosUrl));
+      } else if (Platform.isAndroid) {
+        await launchUrl(Uri.parse(androidUrl));
       }
+    } catch (e) {
+      print(e.toString());
     }
   }
 
 
-//   static Future<void> launchUrlShareApp({
-//     required String title,
-//     required String urlPreview,
-//     String? details,
-//     String? phone,
-//   }) async {
-//     try {
-//       // بناء رابط الصورة
-//       Uri url = Uri.parse('${ApiConstants.baseUrlImage}$urlPreview');
-//
-//       // تحميل الصورة من الرابط
-//       var response = await http.get(url);
-//
-//       // مشاركة الصورة مع النصوص
-//       await Share.shareXFiles(
-//         [
-//           XFile.fromData(
-//             response.bodyBytes,
-//             name: title,
-//             mimeType: 'image/png',
-//           ),
-//         ],
-//         subject: 'فضاء الخليج - ${title.trim()}',
-//         text: '''
-//
-//
-// 📌 ${title.trim()}
-//
-// 📄 التفاصيل:
-// $details
-//
-// 📞 للتواصل:  0547884523
-//             ⚡💯💯💯💯💯💯💯⚡
-// 🌐 https://marketfadaalhalij.artawiya.com/
-//            ⚡💯💯💯💯💯💯💯⚡
-//
-//       ''',
-//         sharePositionOrigin: Rect.fromCircle(
-//           center: Offset(10, 10),
-//           radius: 20,
-//         ),
-//       );
-//     } catch (e) {
-//       print('Error while sharing: $e');
-//     }
-//   }
+}
 
-  static Future<void> launchUrlShareWeb({
-    required String title,
-    required String urlPreview,
-    String? details,
-    String? phone,
-  }) async {
-    Uri url = Uri.parse('${ApiConstants.baseUrlImage}$urlPreview');
-    if (kIsWeb) {
-      // دعم للويب
-      final shareText = '''
-          ${title.trim()}
-          $details
-          
-          $phone
-          ---------------
-          
-          تطبيق فضاء الخليج
-          https://marketfadaalhalij.artawiya.com/
-          ''';
-      await Share.share(shareText);
-    } else {
-      // دعم للموبايل والـ Desktop
-      try {
-        Uri url = Uri.parse('${ApiConstants.baseUrlImage}$urlPreview');
+class CustomShareInfoApp extends StatefulWidget {
+  const CustomShareInfoApp({
+    super.key,
+    required this.icon,
+    this.colorIcon,
+    required this.onTap,
+  });
 
-        // تحميل الصورة من الرابط
-        var response = await http.get(url);
+  final IconData icon;
+  final Color? colorIcon;
+  final Future<void> Function() onTap; // تعديل هنا
 
-        // مشاركة الصورة مع النصوص
-        await Share.shareXFiles(
-          [
-            XFile.fromData(
-              response.bodyBytes,
-              name: title,
-              mimeType: 'image/png',
-            ),
-          ],
-          subject: ' ${title.trim()}',
-          text: '''
-           
-         
-📌 ${title.trim()}
+  @override
+  State<CustomShareInfoApp> createState() => _CustomShareInfoAppState();
+}
 
-📄 التفاصيل:
-$details
+class _CustomShareInfoAppState extends State<CustomShareInfoApp> {
+  bool _isSharing = false;
 
-📞 للتواصل:   $phone
-            ⚡💯💯💯💯💯💯💯⚡
-🌐 https://marketfadaalhalij.artawiya.com/
-           ⚡💯💯💯💯💯💯💯⚡
-
-      ''',
-          sharePositionOrigin: Rect.fromCircle(
-            center: Offset(10, 10),
-            radius: 20,
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () async {
+        setState(() {
+          _isSharing = true;
+        });
+        try {
+          await widget.onTap();
+        } catch (e) {
+          debugPrint(e.toString());
+        } finally {
+          setState(() {
+            _isSharing = false;
+          });
+        }
+      },
+      child: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 300),
+        transitionBuilder:
+            (child, animation) =>
+            FadeTransition(opacity: animation, child: child),
+        child:
+        _isSharing
+            ? const SizedBox(
+          key: ValueKey("loading"),
+          width: 20,
+          height: 20,
+          child: CircularProgressIndicator(
+            color: Colors.blueAccent,
+            strokeWidth: 6,
           ),
-        );
-      } catch (e) {
-        print('Error sharing: $e');
-      }
-    }
+        )
+            : Icon(
+          key: const ValueKey("icon"),
+          size: 20,
+          widget.icon,
+          color: widget.colorIcon ?? ColorManager.white,
+        ),
+      ),
+    );
   }
-
-  // ///launchUrlCall
-  // static Future<void> launchUrlCall(
-  //     {required numPhone, String? messageSms}) async {
-  //   var androidUrl = 'tel:+$numPhone';
-  //   var iosUrl = 'tel:+$numPhone';
-  //   try {
-  //     if (Platform.isIOS) {
-  //       await launchUrl(Uri.parse(iosUrl));
-  //     } else if (Platform.isAndroid) {
-  //       await launchUrl(Uri.parse(androidUrl));
-  //     }
-  //   } catch (e) {
-  //     print(e.toString());
-  //   }
-  // }
-  //
-  // ///launchUrlLocation
-  // static Future<void> launchUrlLocation({
-  //   required String location,
-  // }) async {
-  //   var uri = Uri.parse(location);
-  //   if (await canLaunchUrl(uri)) {
-  //     await launchUrl(uri, mode: LaunchMode.externalApplication);
-  //   } else {
-  //     throw 'Could not open the map.';
-  //   }
-  // }
-  //
-  // static Future<void> launchUserPolicy() async {
-  //   var webUrl = "$launchPolicy/UserPolicy.php";
-  //
-  //   try {
-  //     await launchUrl(Uri.parse(webUrl));
-  //   } catch (e) {
-  //     print(e.toString());
-  //   }
-  // }
-  // static Future<void> launchShopPolicy() async {
-  //   var webUrl = "$launchPolicy/ShopPolicy.php";
-  //
-  //   try {
-  //     await launchUrl(Uri.parse(webUrl));
-  //   } catch (e) {
-  //     print(e.toString());
-  //   }
-  // }
-  // static Future<void> launchSellerPolicy() async {
-  //   var webUrl = "$launchPolicy/SellerPolicy.php";
-  //
-  //   try {
-  //     await launchUrl(Uri.parse(webUrl));
-  //   } catch (e) {
-  //     print(e.toString());
-  //   }
-  // }
 }
