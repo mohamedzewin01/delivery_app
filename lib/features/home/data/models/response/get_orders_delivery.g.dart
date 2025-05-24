@@ -9,10 +9,9 @@ part of 'get_orders_delivery.dart';
 GetOrdersDelivery _$GetOrdersDeliveryFromJson(Map<String, dynamic> json) =>
     GetOrdersDelivery(
       message: json['message'] as String?,
-      orders:
-          (json['orders'] as List<dynamic>?)
-              ?.map((e) => Orders.fromJson(e as Map<String, dynamic>))
-              .toList(),
+      orders: (json['orders'] as List<dynamic>?)
+          ?.map((e) => Orders.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$GetOrdersDeliveryToJson(GetOrdersDelivery instance) =>
@@ -28,18 +27,15 @@ Orders _$OrdersFromJson(Map<String, dynamic> json) => Orders(
   isActive: (json['is_active'] as num?)?.toInt(),
   createdAt: json['created_at'] as String?,
   updatedAt: json['updated_at'] as String?,
-  orderItems:
-      (json['order_items'] as List<dynamic>?)
-          ?.map((e) => OrderItems.fromJson(e as Map<String, dynamic>))
-          .toList(),
-  user:
-      json['user'] == null
-          ? null
-          : User.fromJson(json['user'] as Map<String, dynamic>),
-  userAddress:
-      json['user_address'] == null
-          ? null
-          : UserAddress.fromJson(json['user_address'] as Map<String, dynamic>),
+  orderItems: (json['order_items'] as List<dynamic>?)
+      ?.map((e) => OrderItems.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  user: json['user'] == null
+      ? null
+      : User.fromJson(json['user'] as Map<String, dynamic>),
+  userAddress: json['user_address'] == null
+      ? null
+      : UserAddress.fromJson(json['user_address'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$OrdersToJson(Orders instance) => <String, dynamic>{
@@ -52,9 +48,9 @@ Map<String, dynamic> _$OrdersToJson(Orders instance) => <String, dynamic>{
   'is_active': instance.isActive,
   'created_at': instance.createdAt,
   'updated_at': instance.updatedAt,
-  'order_items': instance.orderItems,
-  'user': instance.user,
-  'user_address': instance.userAddress,
+  'order_items': instance.orderItems?.map((e) => e.toJson()).toList(),
+  'user': instance.user?.toJson(),
+  'user_address': instance.userAddress?.toJson(),
 };
 
 OrderItems _$OrderItemsFromJson(Map<String, dynamic> json) => OrderItems(

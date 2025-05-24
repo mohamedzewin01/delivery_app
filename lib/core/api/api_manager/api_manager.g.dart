@@ -38,10 +38,9 @@ class _ApiService implements ApiService {
     final _result = await _dio.fetch<Map<String, dynamic>?>(_options);
     late GetOrdersDelivery? _value;
     try {
-      _value =
-          _result.data == null
-              ? null
-              : GetOrdersDelivery.fromJson(_result.data!);
+      _value = _result.data == null
+          ? null
+          : GetOrdersDelivery.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

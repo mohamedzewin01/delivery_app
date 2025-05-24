@@ -24,7 +24,7 @@ class GetOrdersDelivery {
       GetOrdersDeliveryEntity(message: message, orders: orders);
 }
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class Orders {
   @JsonKey(name: "order_number")
   final String? orderNumber;
