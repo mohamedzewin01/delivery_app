@@ -21,7 +21,7 @@ class CustomFloatingAction extends StatelessWidget {
         child: SvgPicture.asset(Assets.share,
           colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),width: 30,height: 30,),
         onPressed: () async {
-          Navigator.pushNamed(context, RoutesManager.bestDealsView);
+          // Navigator.pushNamed(context, RoutesManager.bestDealsView);
           // createPdf(products: SearchCubit.get(context).filteredProducts);
           // await showDialog(
           //   context: context,

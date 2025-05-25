@@ -1,5 +1,5 @@
-
 import 'package:delivery/features/auth/presentation/pages/auth_screen.dart';
+import 'package:delivery/features/order_details/presentation/pages/order_details_page.dart';
 import 'package:flutter/material.dart';
 import '../../features/home/presentation/pages/home_view.dart';
 import '../../features/layout/presentation/pages/layout_view.dart';
@@ -15,11 +15,7 @@ class RoutesManager {
   static const String bestDealsAdaptive = '/BestDealsAdaptive';
   static const String addressPage = '/AddressPage';
   static const String authScreen = '/AuthScreen';
-  static const String bestDealsView = '/BestDeals';
-  static const String termsView = '/TermsView';
-  static const String aboutView = '/AboutView';
-  static const String termsViewWeb = '/termsViewWeb';
-  static const String aboutViewWeb = '/aboutViewWeb';
+  static const String orderDetails = '/orderDetails';
 }
 
 class RouteGenerator {
@@ -39,7 +35,6 @@ class RouteGenerator {
           settings: settings,
         );
 
-
       default:
         return unDefinedRoute();
     }
@@ -47,11 +42,10 @@ class RouteGenerator {
 
   static Route<dynamic> unDefinedRoute() {
     return MaterialPageRoute(
-      builder:
-          (_) => Scaffold(
-            appBar: AppBar(title: const Text("No Route Found")),
-            body: const Center(child: Text("No Route Found")),
-          ),
+      builder: (_) => Scaffold(
+        appBar: AppBar(title: const Text("No Route Found")),
+        body: const Center(child: Text("No Route Found")),
+      ),
     );
   }
 }

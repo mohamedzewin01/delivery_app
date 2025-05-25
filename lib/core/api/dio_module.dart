@@ -11,8 +11,9 @@ abstract class DioModule {
     Dio dio = Dio(
       BaseOptions(
         baseUrl: ApiConstants.baseUrl,
-        connectTimeout: const Duration(milliseconds: 5000),
-        receiveTimeout: const Duration(milliseconds: 5000),
+        connectTimeout: const Duration(seconds: 5),
+        receiveTimeout: const Duration(seconds: 5),
+        sendTimeout: const Duration(seconds: 5),
       ),
     );
 
@@ -45,7 +46,7 @@ abstract class DioModule {
 
           return handler.next(response);
         },
-        onError: (DioError error, handler) {
+        onError: (DioException error, handler) {
 
           return handler.next(error);
         },

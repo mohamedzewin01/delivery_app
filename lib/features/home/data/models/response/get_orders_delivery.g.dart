@@ -36,6 +36,9 @@ Orders _$OrdersFromJson(Map<String, dynamic> json) => Orders(
   userAddress: json['user_address'] == null
       ? null
       : UserAddress.fromJson(json['user_address'] as Map<String, dynamic>),
+  delivery: json['delivery'] == null
+      ? null
+      : Delivery.fromJson(json['delivery'] as Map<String, dynamic>),
 );
 
 Map<String, dynamic> _$OrdersToJson(Orders instance) => <String, dynamic>{
@@ -51,6 +54,7 @@ Map<String, dynamic> _$OrdersToJson(Orders instance) => <String, dynamic>{
   'order_items': instance.orderItems?.map((e) => e.toJson()).toList(),
   'user': instance.user?.toJson(),
   'user_address': instance.userAddress?.toJson(),
+  'delivery': instance.delivery?.toJson(),
 };
 
 OrderItems _$OrderItemsFromJson(Map<String, dynamic> json) => OrderItems(
@@ -116,3 +120,21 @@ Map<String, dynamic> _$UserAddressToJson(UserAddress instance) =>
       'isActive': instance.isActive,
       'created_at': instance.createdAt,
     };
+
+Delivery _$DeliveryFromJson(Map<String, dynamic> json) => Delivery(
+  name: json['name'] as String?,
+  phone: json['phone'] as String?,
+  photo: json['photo'] as String?,
+  idDelivery: json['id_driver'] as String?,
+  lat: json['lat'] as String?,
+  long: json['long'] as String?,
+);
+
+Map<String, dynamic> _$DeliveryToJson(Delivery instance) => <String, dynamic>{
+  'name': instance.name,
+  'phone': instance.phone,
+  'photo': instance.photo,
+  'lat': instance.lat,
+  'long': instance.long,
+  'id_driver': instance.idDelivery,
+};

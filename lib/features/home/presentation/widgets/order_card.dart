@@ -1,32 +1,56 @@
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:delivery/core/functions/launch_url.dart';
 import 'package:delivery/core/functions/translate_order_status.dart';
 import 'package:delivery/core/resources/assets_manager.dart';
 import 'package:delivery/core/resources/color_manager.dart';
+import 'package:delivery/core/resources/routes_manager.dart';
 import 'package:delivery/core/resources/style_manager.dart';
 import 'package:delivery/core/utils/firebase_utils.dart';
 import 'package:delivery/core/widgets/rial_icon.dart';
 import 'package:delivery/features/home/data/models/response/get_orders_delivery.dart';
+import 'package:delivery/features/order_details/presentation/pages/order_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../cubit/home_cubit.dart';
+
 class OrderCard extends StatelessWidget {
   final Orders order;
+  final HomeCubit viewModel;
 
-  const OrderCard({super.key, required this.order});
+  const OrderCard({super.key, required this.order, required this.viewModel});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () async{
-       await FirebaseUtils.addOrder(order);
+      onTap: () async {
+        await FirebaseUtils.addOrder(order);
+        int currentStageIndex = getCurrentStageIndex(order.status ?? '');
+        if(context.mounted){
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => OrderDetailsPage(
+                orderId: order.idOrder.toString() ?? '',
+                currentStageIndex: currentStageIndex,
+              ),
+
+            ),
+
+          ).then((value){
+            viewModel.getHomeData();
+          });
+        }
+
       },
       child: Container(
         // elevation: 2.0,
         decoration: BoxDecoration(
-          border: Border.all(color: ColorManager.grey.withAlpha(150), width: 1.0),
+          border: Border.all(
+            color: ColorManager.grey.withAlpha(150),
+            width: 1.0,
+          ),
           borderRadius: BorderRadius.circular(12.0),
           color: ColorManager.primaryColor.withAlpha(10),
         ),
@@ -35,7 +59,6 @@ class OrderCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -209,7 +232,9 @@ class OrderCard extends StatelessWidget {
                                   children: [
                                     WidgetSpan(
                                       child: Padding(
-                                        padding: const EdgeInsets.only(left: 4.0),
+                                        padding: const EdgeInsets.only(
+                                          left: 4.0,
+                                        ),
                                         child: Icon(
                                           Icons.location_on,
                                           size: 16,
@@ -236,7 +261,9 @@ class OrderCard extends StatelessWidget {
                                   children: [
                                     WidgetSpan(
                                       child: Padding(
-                                        padding: const EdgeInsets.only(left: 4.0),
+                                        padding: const EdgeInsets.only(
+                                          left: 4.0,
+                                        ),
                                         child: Icon(
                                           FontAwesomeIcons.dotCircle,
                                           size: 12,
@@ -324,11 +351,27 @@ class OrderCard extends StatelessWidget {
                   ],
                 ),
               ),
-
             ],
           ),
         ),
       ),
     );
+  }
+}
+
+int getCurrentStageIndex(String status) {
+  switch (status) {
+    case 'Pending':
+      return 0;
+    case 'Order Accepted':
+      return 1;
+    case 'Preparing':
+      return 2;
+    case 'Out for Delivery':
+      return 3;
+    case 'Delivered':
+      return 4;
+    default:
+      return 0;
   }
 }

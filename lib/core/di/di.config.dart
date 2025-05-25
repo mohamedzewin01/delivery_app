@@ -31,6 +31,20 @@ import '../../features/home/domain/usecases/home_usecase_repo.dart' as _i355;
 import '../../features/home/domain/usecases/home_usecase_repo_impl.dart'
     as _i465;
 import '../../features/home/presentation/cubit/home_cubit.dart' as _i9;
+import '../../features/order_details/data/datasources/order_details_datasource_repo.dart'
+    as _i435;
+import '../../features/order_details/data/datasources/order_details_datasource_repo_impl.dart'
+    as _i585;
+import '../../features/order_details/data/repositories_impl/order_details_repo_impl.dart'
+    as _i615;
+import '../../features/order_details/domain/repositories/order_details_repository.dart'
+    as _i304;
+import '../../features/order_details/domain/usecases/order_details_usecase_repo.dart'
+    as _i489;
+import '../../features/order_details/domain/usecases/order_details_usecase_repo_impl.dart'
+    as _i719;
+import '../../features/order_details/presentation/bloc/order_details_cubit.dart'
+    as _i541;
 import '../../features/test/data/datasources/test_datasource_repo.dart'
     as _i539;
 import '../../features/test/data/datasources/test_datasource_repo_impl.dart'
@@ -57,11 +71,22 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i361.Dio>(() => dioModule.providerDio());
     gh.factory<_i680.ApiService>(() => _i680.ApiService(gh<_i361.Dio>()));
     gh.factory<_i403.TestRepository>(() => _i515.TestRepositoryImpl());
+    gh.factory<_i435.OrderDetailsDatasourceRepo>(
+      () => _i585.OrderDetailsDatasourceRepoImpl(gh<_i680.ApiService>()),
+    );
+    gh.factory<_i304.OrderDetailsRepository>(
+      () => _i615.OrderDetailsRepositoryImpl(
+        gh<_i435.OrderDetailsDatasourceRepo>(),
+      ),
+    );
     gh.factory<_i645.HomeDataSourceRepo>(
       () => _i985.HomeDataSourceRepoImpl(gh<_i680.ApiService>()),
     );
     gh.factory<_i280.HomeRepo>(
       () => _i886.HomeRepoImpl(gh<_i645.HomeDataSourceRepo>()),
+    );
+    gh.factory<_i489.OrderDetailsUseCaseRepo>(
+      () => _i719.OrderDetailsUseCase(gh<_i304.OrderDetailsRepository>()),
     );
     gh.factory<_i539.TestDatasourceRepo>(
       () => _i28.TestDatasourceRepoImpl(gh<_i680.ApiService>()),
@@ -74,6 +99,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i355.HomeUseCaseRepo>(
       () => _i465.HomeUseCase(gh<_i280.HomeRepo>()),
+    );
+    gh.factory<_i541.OrderDetailsCubit>(
+      () => _i541.OrderDetailsCubit(gh<_i489.OrderDetailsUseCaseRepo>()),
     );
     gh.factory<_i9.HomeCubit>(() => _i9.HomeCubit(gh<_i355.HomeUseCaseRepo>()));
     gh.factory<_i170.AuthRepo>(

@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           itemBuilder: (context, index) {
                             return Padding(
                               padding: const EdgeInsets.only(bottom: 16.0),
-                              child: OrderCard(order: orders[index]),
+                              child: OrderCard(order: orders[index],viewModel: viewModel,),
                             );
                           },
                         ),

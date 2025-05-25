@@ -10,7 +10,8 @@ class GetOrdersDelivery {
   @JsonKey(name: "orders")
   final List<Orders>? orders;
 
-  GetOrdersDelivery({this.message, this.orders});
+
+  GetOrdersDelivery({this.message, this.orders,});
 
   factory GetOrdersDelivery.fromJson(Map<String, dynamic> json) {
     return _$GetOrdersDeliveryFromJson(json);
@@ -50,6 +51,8 @@ class Orders {
   final User? user;
   @JsonKey(name: "user_address")
   final UserAddress? userAddress;
+  @JsonKey(name: "delivery")
+  final Delivery? delivery;
 
   Orders({
     this.orderNumber,
@@ -64,6 +67,7 @@ class Orders {
     this.orderItems,
     this.user,
     this.userAddress,
+    this.delivery,
   });
 
   factory Orders.fromJson(Map<String, dynamic> json) {
@@ -178,5 +182,42 @@ class UserAddress {
 
   Map<String, dynamic> toJson() {
     return _$UserAddressToJson(this);
+  }
+}
+
+
+@JsonSerializable()
+class Delivery {
+  Delivery({
+
+    this.name,
+
+    this.phone,
+    this.photo,
+    this.idDelivery,
+    this.lat,
+    this.long,
+
+  });
+
+  @JsonKey(name: "name")
+  String? name;
+  @JsonKey(name: "phone")
+  String? phone;
+  @JsonKey(name: "photo")
+  String? photo;
+  @JsonKey(name: "lat")
+  String? lat;
+  @JsonKey(name: "long")
+  String? long;
+  @JsonKey(name: "id_driver")
+  String? idDelivery;
+
+  factory Delivery.fromJson(Map<String, dynamic> json) {
+    return _$DeliveryFromJson(json);
+  }
+
+  Map<String, dynamic> toJson() {
+    return _$DeliveryToJson(this);
   }
 }
