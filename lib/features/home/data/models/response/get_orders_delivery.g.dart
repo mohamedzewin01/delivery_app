@@ -39,6 +39,9 @@ Orders _$OrdersFromJson(Map<String, dynamic> json) => Orders(
   delivery: json['delivery'] == null
       ? null
       : Delivery.fromJson(json['delivery'] as Map<String, dynamic>),
+  acceptedAt: json['acceptedAt'] as String?,
+  preparingAt: json['preparingAt'] as String?,
+  outDeliveryAt: json['outDeliveryAt'] as String?,
 );
 
 Map<String, dynamic> _$OrdersToJson(Orders instance) => <String, dynamic>{
@@ -55,6 +58,9 @@ Map<String, dynamic> _$OrdersToJson(Orders instance) => <String, dynamic>{
   'user': instance.user?.toJson(),
   'user_address': instance.userAddress?.toJson(),
   'delivery': instance.delivery?.toJson(),
+  'acceptedAt': instance.acceptedAt,
+  'preparingAt': instance.preparingAt,
+  'outDeliveryAt': instance.outDeliveryAt,
 };
 
 OrderItems _$OrderItemsFromJson(Map<String, dynamic> json) => OrderItems(

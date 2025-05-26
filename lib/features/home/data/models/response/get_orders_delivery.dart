@@ -53,6 +53,15 @@ class Orders {
   final UserAddress? userAddress;
   @JsonKey(name: "delivery")
   final Delivery? delivery;
+  @JsonKey(name: "acceptedAt")
+  final String? acceptedAt;
+
+  @JsonKey(name: "preparingAt")
+  final String? preparingAt;
+
+  @JsonKey(name: "outDeliveryAt")
+  final String? outDeliveryAt;
+
 
   Orders({
     this.orderNumber,
@@ -68,6 +77,9 @@ class Orders {
     this.user,
     this.userAddress,
     this.delivery,
+    this.acceptedAt,
+    this.preparingAt,
+    this.outDeliveryAt
   });
 
   factory Orders.fromJson(Map<String, dynamic> json) {

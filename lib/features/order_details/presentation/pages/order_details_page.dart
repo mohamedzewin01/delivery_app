@@ -110,13 +110,38 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                 String formattedTime = DateFormat(
                   'yyyy-MM-dd HH:mm:ss',
                 ).format(now);
+                final existingOrder = await FirebaseUtils.getOrderById(widget.orderId);
+
+
+                String acceptedAtTime = existingOrder?.acceptedAt ?? '';
+                String preparingAtTime = existingOrder?.preparingAt ?? '';
+                String outDeliveryAtTime = existingOrder?.outDeliveryAt ?? '';
+
+                if(currentStageIndex == 0){
+                  acceptedAtTime=DateFormat(
+                    'yyyy-MM-dd HH:mm:ss',
+                  ).format(now);
+                }
+                if(currentStageIndex == 1){
+                  preparingAtTime=DateFormat(
+                    'yyyy-MM-dd HH:mm:ss',
+                  ).format(now);
+                }
+                if(currentStageIndex == 2){
+                  outDeliveryAtTime=DateFormat(
+                    'yyyy-MM-dd HH:mm:ss',
+                  ).format(now);
+                }
                 currentStageIndex++;
                 setState(() {});
                 await FirebaseUtils.updateOrderState(
                   orderId: widget.orderId,
                   updatedData: OrderStateModel(
+                    acceptedAt:acceptedAtTime ,
+                    preparingAt: preparingAtTime,
+                    outDeliveryAt:outDeliveryAtTime ,
                     updatedAt: formattedTime,
-                    status: Constants.orderStages[currentStageIndex + 1],
+                    status: Constants.orderStages[currentStageIndex ],
                   ),
                 );
               },
