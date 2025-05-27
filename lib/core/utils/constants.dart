@@ -26,15 +26,15 @@ class Constants {
  static String getButtonLabel(String status) {
     switch (status) {
       case 'Pending':
-        return 'قبول الطلب';
-      case 'Order Accepted':
         return 'بدء التحضير';
-      case 'Preparing':
+      case 'Order Accepted':
         return 'البدء من التوصيل';
-      case 'Out for Delivery':
+      case 'Preparing':
         return 'جاري التوصيل';
+      case 'Out for Delivery':
+        return 'تم التوصيل';
       case 'Delivered':
-        return 'مكتمل';
+        return 'انهاء';
       default:
         return 'غير معروف';
     }

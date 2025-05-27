@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:delivery/assets_manager.dart';
 import 'package:delivery/core/resources/assets_manager.dart';
 import 'package:delivery/core/resources/color_manager.dart';
 import 'package:delivery/core/resources/routes_manager.dart';
@@ -40,7 +41,7 @@ void showAuthActionSheet(BuildContext context) {
                     shape: BoxShape.circle,
                     color: ColorManager.primaryColor, // اللون الداخلي
                   ),
-                  child: Image.asset(Assets.logo3),
+                  child: Image.asset(Assets.logo3Png),
                 ),
               ),
             ),

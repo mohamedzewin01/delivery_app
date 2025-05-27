@@ -3,6 +3,7 @@ import 'package:delivery/features/home/data/models/response/get_orders_delivery.
 import 'package:delivery/features/order_details/data/models/request/updata_status_request.dart';
 import 'package:delivery/features/order_details/data/models/response/update_status_dto.dart';
 import 'package:delivery/features/order_details/domain/entities/order_details_entities.dart';
+import 'package:delivery/features/orders_completed/data/models/response/order_completed_dto.dart';
 import 'package:dio/dio.dart';
 
 import 'package:injectable/injectable.dart';
@@ -24,7 +25,8 @@ abstract class ApiService {
   Future<UpdateStatusDto?> updateOrderStatus(
       @Body() UpdateStatusRequest updateStatusRequest
       );
-
+  @POST(ApiConstants.ordersCompleted)
+  Future<OrderCompletedDto?> getOrdersCompleted();
 }
 
 //  @MultiPart()

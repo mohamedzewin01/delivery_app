@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:delivery/assets_manager.dart';
 import 'package:delivery/core/functions/launch_url.dart';
 import 'package:delivery/core/resources/assets_manager.dart';
 import 'package:delivery/core/resources/color_manager.dart';
@@ -109,59 +110,24 @@ class CustomSliverAppBar extends StatelessWidget {
       ),
       leading: GestureDetector(
         onTap: () async {
-          await showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (BuildContext context) {
-              Future(() async {
-                // await CustomLaunchUrl.launchUrlShareWeb(
-                //   title: CacheService.getData(key: CacheConstants.storeName),
-                //   details: CacheService.getData(
-                //     key: CacheConstants.storeDescription,
-                //   ),
-                //   urlPreview: CacheService.getData(
-                //     key: CacheConstants.storeUrlImage,
-                //   ),
-                //   phone: CacheService.getData(key: CacheConstants.storePhone),
-                // );
-                if (context.mounted) {
-                  Navigator.of(context).pop();
-                }
-              });
-              return AlertDialog(
-                backgroundColor: Colors.transparent,
-                content: Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      CircularProgressIndicator(color: ColorManager.primaryColor),
-                      const SizedBox(height: 16),
-                      Text(
-                        'جارٍ التحضير...',
-                        style: getSemiBoldStyle(color: ColorManager.primaryColor,fontSize: 16),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            },
-          );
+         Navigator.pop(context);
         },
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SvgPicture.asset(
-            Assets.share,
-            colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
-            width: 25,
-            height: 25,
+        child: Container(
+          margin: const EdgeInsets.all(7) ,
+          padding: const EdgeInsets.only(right: 7),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: ColorManager.white
           ),
+          child: Icon(Icons.arrow_back_ios,
+              size: 22, color: ColorManager.primaryColor),
         ),
       ),
       actions: showLogo
           ? [
         Padding(
           padding: const EdgeInsets.only(left: 12.0, right: 8.0),
-          child: Image.asset(Assets.logo3, scale: 1),
+          child: Image.asset(Assets.logo3Png, scale: 1),
         )
       ]
           : [],

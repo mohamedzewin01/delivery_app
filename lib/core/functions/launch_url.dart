@@ -59,6 +59,16 @@ class CustomLaunchUrl {
   }
 
 
+ static Future<void> openMap({required double lat, required double long}) async {
+    final Uri googleMapsUrl = Uri.parse("https://www.google.com/maps/search/?api=1&query=$lat,$long");
+
+    if (await canLaunchUrl(googleMapsUrl)) {
+      await launchUrl(googleMapsUrl, mode: LaunchMode.externalApplication); // يفتح التطبيق أو المتصفح
+    } else {
+      throw 'Could not open the map.';
+    }
+  }
+
 }
 
 class CustomShareInfoApp extends StatefulWidget {

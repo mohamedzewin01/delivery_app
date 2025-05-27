@@ -1,3 +1,4 @@
+import 'package:delivery/core/api/models/order_firebase_model.dart';
 import 'package:delivery/features/home/domain/entities/home_entities.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -34,7 +35,7 @@ class Orders {
   @JsonKey(name: "status")
   final String? status;
   @JsonKey(name: "totalPrice")
-  final double? totalPrice;
+  final num? totalPrice;
   @JsonKey(name: "order_date")
   final String? orderDate;
   @JsonKey(name: "delivery_time")
@@ -55,10 +56,8 @@ class Orders {
   final Delivery? delivery;
   @JsonKey(name: "acceptedAt")
   final String? acceptedAt;
-
   @JsonKey(name: "preparingAt")
   final String? preparingAt;
-
   @JsonKey(name: "outDeliveryAt")
   final String? outDeliveryAt;
 
@@ -89,6 +88,16 @@ class Orders {
   Map<String, dynamic> toJson() {
     return _$OrdersToJson(this);
   }
+  OrdersFirebaseModel toOrdersFirebaseModel() => OrdersFirebaseModel(
+      orderNumber: orderNumber,
+      idOrder: idOrder,
+      status: status,
+      createdAt: createdAt,
+      acceptedAt: acceptedAt,
+      preparingAt: preparingAt,
+      updatedAt: updatedAt,
+      delivery: delivery?.toDeliveryFirebaseModel(),
+      outDeliveryAt: outDeliveryAt);
 }
 
 @JsonSerializable()
@@ -98,15 +107,15 @@ class OrderItems {
   @JsonKey(name: "title")
   final String? title;
   @JsonKey(name: "price")
-  final int? price;
+  final num? price;
   @JsonKey(name: "priceAfterDiscount")
-  final int? priceAfterDiscount;
+  final num? priceAfterDiscount;
   @JsonKey(name: "discount")
-  final int? discount;
+  final num? discount;
   @JsonKey(name: "quantity")
   final int? quantity;
   @JsonKey(name: "totalPrice")
-  final int? totalPrice;
+  final num? totalPrice;
   @JsonKey(name: "imgCover")
   final String? imgCover;
 
@@ -232,4 +241,11 @@ class Delivery {
   Map<String, dynamic> toJson() {
     return _$DeliveryToJson(this);
   }
+  DeliveryFirebaseModel toDeliveryFirebaseModel() => DeliveryFirebaseModel(
+      name: name,
+      phone: phone,
+      photo: photo,
+      lat: lat,
+      long: long,
+      idDelivery: idDelivery);
 }

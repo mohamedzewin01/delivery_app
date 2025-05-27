@@ -1,3 +1,4 @@
+import 'package:delivery/assets_manager.dart';
 import 'package:delivery/core/resources/assets_manager.dart';
 import 'package:delivery/core/resources/color_manager.dart';
 import 'package:delivery/core/resources/style_manager.dart';
@@ -9,12 +10,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final VoidCallback? onBackTap;
   final bool showLogo;
+  final IconData? icon;
 
   const CustomAppBar({
     super.key,
     required this.title,
     this.onBackTap,
-    this.showLogo = true,
+    this.showLogo = true, this.icon,
   });
 
   @override
@@ -32,7 +34,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ? [
         Padding(
           padding: const EdgeInsets.only(left: 12.0, right: 8.0),
-          child: Image.asset(Assets.logo3, scale: 1),
+          child: Image.asset(Assets.logo3Png, scale: 1),
         )
       ]
           : [],
@@ -44,14 +46,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             padding: const EdgeInsets.only(right: 7),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              border: Border.all(color: Colors.grey.shade200),
-              color: Colors.white,
+
+              color:icon!=null?ColorManager.primaryColor: Colors.white,
             ),
             child: Center(
               child: Icon(
-                Icons.arrow_back_ios,
-                size: 22,
-                color: Colors.grey.shade700,
+                icon??Icons.arrow_back_ios,
+                size: 28,
+                color:icon!=null?Colors.white: Colors.grey.shade700,
               ),
             ),
           ),

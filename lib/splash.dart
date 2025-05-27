@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:delivery/core/resources/color_manager.dart';
 
+import 'assets_manager.dart';
 import 'core/resources/assets_manager.dart';
 import 'core/resources/routes_manager.dart';
 import 'core/resources/style_manager.dart';
@@ -32,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
               children: [
                 Spacer(),
                 Image.asset(
-                  Assets.logo,
+                  Assets.logoPng,
                   scale: 2.5,
                 ),
 

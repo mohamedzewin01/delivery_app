@@ -1,3 +1,4 @@
+import 'package:delivery/assets_manager.dart';
 import 'package:flutter/material.dart';
 
 
@@ -13,7 +14,7 @@ class CustomRiyalSaudi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Image.asset(
-      Assets.imagesRial,
+      Assets.rialPng,
       height: size ?? 15,
       width: size ?? 15,
       color: color ?? ColorManager.error,

@@ -1,4 +1,5 @@
 
+import 'package:delivery/assets_manager.dart';
 import 'package:delivery/core/resources/assets_manager.dart';
 import 'package:delivery/core/resources/color_manager.dart';
 import 'package:delivery/core/resources/routes_manager.dart';
@@ -18,7 +19,7 @@ class CustomFloatingAction extends StatelessWidget {
       child: FloatingActionButton(
         mini: true,
         backgroundColor: ColorManager.primaryColor,
-        child: SvgPicture.asset(Assets.share,
+        child: SvgPicture.asset(Assets.shareSvg,
           colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),width: 30,height: 30,),
         onPressed: () async {
           // Navigator.pushNamed(context, RoutesManager.bestDealsView);

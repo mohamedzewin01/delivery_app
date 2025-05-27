@@ -1,3 +1,4 @@
+import 'package:delivery/features/orders_completed/presentation/pages/orders_completed_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../features/home/presentation/pages/home_view.dart';
@@ -9,24 +10,8 @@ class AppConstants {
   static const viewOptions = [
 
     HomeScreen(),
-    Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('الادورات')
-        ],
-      ),
+    OrdersCompletedPage(),
 
-    ),
-    Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('الحساب')
-        ],
-      ),
-
-    ),
 
   ];
 }

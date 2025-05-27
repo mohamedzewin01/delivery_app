@@ -9,5 +9,6 @@ class ApiConstants {
 
   static const String orderDelivery = "orders/order_delivery.php";
   static const String orderStatus = "orders/order_status";
+  static const String ordersCompleted = "orders/get_delivery_completed";
 
 }

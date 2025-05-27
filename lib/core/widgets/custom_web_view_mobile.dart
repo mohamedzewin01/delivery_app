@@ -1,3 +1,4 @@
+import 'package:delivery/assets_manager.dart';
 import 'package:delivery/core/resources/color_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -68,7 +69,7 @@ class _CustomWebViewMobileState extends State<CustomWebViewMobile> {
                //   // color: ColorManager.primaryColor,
                // ),
                child: Center(
-                 child: Image.asset(Assets.logo3, ),
+                 child: Image.asset(Assets.logo3Png, ),
                ),
              ),
            )

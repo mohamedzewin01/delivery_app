@@ -21,7 +21,7 @@ Orders _$OrdersFromJson(Map<String, dynamic> json) => Orders(
   orderNumber: json['order_number'] as String?,
   idOrder: (json['id_order'] as num?)?.toInt(),
   status: json['status'] as String?,
-  totalPrice: (json['totalPrice'] as num?)?.toDouble(),
+  totalPrice: json['totalPrice'] as num?,
   orderDate: json['order_date'] as String?,
   deliveryTime: json['delivery_time'] as String?,
   isActive: (json['is_active'] as num?)?.toInt(),
@@ -66,11 +66,11 @@ Map<String, dynamic> _$OrdersToJson(Orders instance) => <String, dynamic>{
 OrderItems _$OrderItemsFromJson(Map<String, dynamic> json) => OrderItems(
   productId: (json['product_id'] as num?)?.toInt(),
   title: json['title'] as String?,
-  price: (json['price'] as num?)?.toInt(),
-  priceAfterDiscount: (json['priceAfterDiscount'] as num?)?.toInt(),
-  discount: (json['discount'] as num?)?.toInt(),
+  price: json['price'] as num?,
+  priceAfterDiscount: json['priceAfterDiscount'] as num?,
+  discount: json['discount'] as num?,
   quantity: (json['quantity'] as num?)?.toInt(),
-  totalPrice: (json['totalPrice'] as num?)?.toInt(),
+  totalPrice: json['totalPrice'] as num?,
   imgCover: json['imgCover'] as String?,
 );
 

@@ -1,3 +1,4 @@
+import 'package:delivery/assets_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:delivery/core/functions/helper.dart';
 
@@ -29,31 +30,27 @@ class CustomBottomNavigationBar extends StatelessWidget {
       ),
       child: BottomNavigationBar(
         elevation: 6,
-        backgroundColor: Colors.white,
+        backgroundColor: ColorManager.primaryColor,
 
 
         items: [
           BottomNavigationBarItem(
-            icon: buildIcon(Assets.categoriesSvg, 0, currentIndex),
+            icon: buildIcon(Assets.homeSvg, 0, currentIndex),
             label: AppLocalizations.of(context)!.home,
           ),
           BottomNavigationBarItem(
             icon: buildIcon(Assets.categoriesSvg, 1, currentIndex),
-            label: AppLocalizations.of(context)!.categories,
+            label: AppLocalizations.of(context)!.orders,
           ),
 
-          BottomNavigationBarItem(
-            icon: buildIcon(Assets.categoriesSvg, 4, currentIndex),
-            label: AppLocalizations.of(context)!.user,
-          ),
         ],
         selectedFontSize: AppSize.s14,
-        selectedLabelStyle: getSemiBoldStyle(color: ColorManager.lightGrey2),
+        selectedLabelStyle: getSemiBoldStyle(color: ColorManager.white),
         unselectedLabelStyle: getSemiBoldStyle(color: ColorManager.lightGrey2),
         currentIndex: currentIndex,
         onTap: onItemTapped,
-        type: BottomNavigationBarType.values[1],
-        selectedItemColor: ColorManager.primaryColor,
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: ColorManager.white,
       ),
     );
   }

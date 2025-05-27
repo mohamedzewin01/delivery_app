@@ -45,6 +45,20 @@ import '../../features/order_details/domain/usecases/order_details_usecase_repo_
     as _i719;
 import '../../features/order_details/presentation/bloc/order_details_cubit.dart'
     as _i541;
+import '../../features/orders_completed/data/datasources/orders_completed_datasource_repo.dart'
+    as _i282;
+import '../../features/orders_completed/data/datasources/orders_completed_datasource_repo_impl.dart'
+    as _i1066;
+import '../../features/orders_completed/data/repositories_impl/orders_completed_repo_impl.dart'
+    as _i801;
+import '../../features/orders_completed/domain/repositories/orders_completed_repository.dart'
+    as _i539;
+import '../../features/orders_completed/domain/useCases/orders_completed_useCase_repo.dart'
+    as _i693;
+import '../../features/orders_completed/domain/useCases/orders_completed_useCase_repo_impl.dart'
+    as _i166;
+import '../../features/orders_completed/presentation/bloc/orders_completed_cubit.dart'
+    as _i977;
 import '../../features/test/data/datasources/test_datasource_repo.dart'
     as _i539;
 import '../../features/test/data/datasources/test_datasource_repo_impl.dart'
@@ -91,14 +105,28 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i539.TestDatasourceRepo>(
       () => _i28.TestDatasourceRepoImpl(gh<_i680.ApiService>()),
     );
+    gh.factory<_i282.OrdersCompletedDatasourceRepo>(
+      () => _i1066.OrdersCompletedDatasourceRepoImpl(gh<_i680.ApiService>()),
+    );
     gh.factory<_i53.TestUseCaseRepo>(
       () => _i352.TestUseCase(gh<_i403.TestRepository>()),
     );
     gh.factory<_i69.AuthDataSourcesRepo>(
       () => _i552.AuthDataSourcesRpoImpl(gh<_i680.ApiService>()),
     );
+    gh.factory<_i539.OrdersCompletedRepository>(
+      () => _i801.OrdersCompletedRepositoryImpl(
+        gh<_i282.OrdersCompletedDatasourceRepo>(),
+      ),
+    );
+    gh.factory<_i693.OrdersCompletedUseCaseRepo>(
+      () => _i166.OrdersCompletedUseCase(gh<_i539.OrdersCompletedRepository>()),
+    );
     gh.factory<_i355.HomeUseCaseRepo>(
       () => _i465.HomeUseCase(gh<_i280.HomeRepo>()),
+    );
+    gh.factory<_i977.OrdersCompletedCubit>(
+      () => _i977.OrdersCompletedCubit(gh<_i693.OrdersCompletedUseCaseRepo>()),
     );
     gh.factory<_i541.OrderDetailsCubit>(
       () => _i541.OrderDetailsCubit(gh<_i489.OrderDetailsUseCaseRepo>()),

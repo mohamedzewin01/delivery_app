@@ -1,3 +1,4 @@
+import 'package:delivery/assets_manager.dart';
 import 'package:delivery/core/common/custom_exception.dart';
 import 'package:delivery/core/di/di.dart';
 import 'package:delivery/core/resources/assets_manager.dart';
@@ -80,7 +81,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               ),
 
                               child: Image.asset(
-                                Assets.logo3,
+                                Assets.logo3Png,
                                 width: 100,
                                 height: 100,
                               ),

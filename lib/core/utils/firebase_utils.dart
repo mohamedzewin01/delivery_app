@@ -1,20 +1,21 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:delivery/core/api/models/order_firebase_model.dart';
 import 'package:delivery/core/resources/app_constants.dart';
-import 'package:delivery/features/home/data/models/response/get_orders_delivery.dart';
+
 
 class FirebaseUtils {
-  static CollectionReference<Orders> get ordersCollection {
+  static CollectionReference<OrdersFirebaseModel> get ordersCollection {
     return FirebaseFirestore.instance
         .collection(AppConstants.collection)
-        .withConverter<Orders>(
-          fromFirestore: (snapshot, _) => Orders.fromJson(snapshot.data()!),
+        .withConverter<OrdersFirebaseModel>(
+          fromFirestore: (snapshot, _) => OrdersFirebaseModel.fromJson(snapshot.data()!),
           toFirestore: (order, _) => order.toJson(),
         );
   }
 
-  static Future<void> addOrder(Orders order) async {
+  static Future<void> addOrder(OrdersFirebaseModel order) async {
     try {
       await ordersCollection.doc(order.idOrder.toString()).set(order);
     } catch (e) {
@@ -25,7 +26,7 @@ class FirebaseUtils {
 
   static Future<void> saveDriverInOrderData(
     String orderId,
-    Delivery deliveryData,
+      DeliveryFirebaseModel deliveryData,
   ) async {
     try {
       var document = FirebaseFirestore.instance
@@ -39,7 +40,7 @@ class FirebaseUtils {
     }
   }
 
-  static Future<Orders?> getOrderById(String orderId) async {
+  static Future<OrdersFirebaseModel?> getOrderById(String orderId) async {
     try {
       final docSnapshot = await ordersCollection.doc(orderId).get();
 

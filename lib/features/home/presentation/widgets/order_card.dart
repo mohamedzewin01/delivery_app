@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:delivery/assets_manager.dart';
 import 'package:delivery/core/functions/launch_url.dart';
 import 'package:delivery/core/functions/translate_order_status.dart';
 import 'package:delivery/core/resources/assets_manager.dart';
@@ -6,6 +7,7 @@ import 'package:delivery/core/resources/color_manager.dart';
 import 'package:delivery/core/resources/routes_manager.dart';
 import 'package:delivery/core/resources/style_manager.dart';
 import 'package:delivery/core/utils/firebase_utils.dart';
+import 'package:delivery/core/widgets/custom_dialog.dart';
 import 'package:delivery/core/widgets/rial_icon.dart';
 import 'package:delivery/features/home/data/models/response/get_orders_delivery.dart';
 import 'package:delivery/features/order_details/presentation/pages/order_details_page.dart';
@@ -25,24 +27,56 @@ class OrderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
-        await FirebaseUtils.addOrder(order);
-        int currentStageIndex = getCurrentStageIndex(order.status ?? '');
-        if(context.mounted){
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => OrderDetailsPage(
-                orderId: order.idOrder.toString() ?? '',
-                currentStageIndex: currentStageIndex,
+        // 1. عرض مؤشر التحميل
+        showDialog(
+          context: context,
+          barrierDismissible: false, // يمنع الإغلاق بالنقر بالخارج
+          builder: (context) =>
+               Center(child: CircularProgressIndicator(color: ColorManager.primaryColor)),
+        );
+
+        try {
+
+          await FirebaseUtils.addOrder(order.toOrdersFirebaseModel());
+
+          int currentStageIndex = getCurrentStageIndex(order.status ?? '');
+
+          if (context.mounted) {
+            Navigator.pop(context);
+
+
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => OrderDetailsPage(
+                  order: order,
+                  orderId: order.idOrder.toString(),
+                  currentStageIndex: currentStageIndex,
+                ),
               ),
+            ).then((value) {
+              viewModel.getHomeData();
+            });
+          }
+        } catch (e) {
+          if (context.mounted) {
+            Navigator.pop(context);
 
-            ),
-
-          ).then((value){
-            viewModel.getHomeData();
-          });
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text('حدث خطأ'),
+                content: Text(e.toString()),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text('حسناً'),
+                  ),
+                ],
+              ),
+            );
+          }
         }
-
       },
       child: Container(
         // elevation: 2.0,
@@ -204,6 +238,27 @@ class OrderCard extends StatelessWidget {
                           },
                           colorIcon: Colors.green,
                         ),
+                        SizedBox(width: 12),
+                        CustomShareInfoApp(
+                          icon: FontAwesomeIcons.locationCrosshairs,
+                          onTap: () async {
+                            order.userAddress?.lat != null &&
+                                    order.userAddress?.long != null
+                                ? CustomLaunchUrl.openMap(
+                                    lat: double.parse(
+                                      order.userAddress?.lat ?? '0.0',
+                                    ),
+                                    long: double.parse(
+                                      order.userAddress?.long ?? '0.0',
+                                    ),
+                                  )
+                                : CustomDialog.showErrorDialog(
+                                    context,
+                                    message: 'لا يوجد موقع للمستخدم',
+                                  );
+                          },
+                          colorIcon: Colors.pinkAccent,
+                        ),
                       ],
                     ),
                     Row(
@@ -327,29 +382,37 @@ class OrderCard extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 8),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  color: ColorManager.primaryColor,
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      order.totalPrice.toString(),
-                      textAlign: TextAlign.center,
-                      style: getSemiBoldStyle(
-                        color: ColorManager.white,
-                        fontSize: 18,
-                      ).copyWith(fontWeight: FontWeight.w800),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
                     ),
-                    const SizedBox(width: 4),
-                    RialIcon(size: 18, color: ColorManager.white),
-                  ],
-                ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: ColorManager.primaryColor,
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          order.totalPrice.toString(),
+                          textAlign: TextAlign.center,
+                          style: getSemiBoldStyle(
+                            color: ColorManager.white,
+                            fontSize: 18,
+                          ).copyWith(fontWeight: FontWeight.w800),
+                        ),
+                        const SizedBox(width: 4),
+                        RialIcon(size: 18, color: ColorManager.white),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

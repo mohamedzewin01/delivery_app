@@ -1,4 +1,5 @@
 
+import 'package:delivery/assets_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:delivery/features/layout/presentation/widgets/mobile.dart';
 
@@ -19,7 +20,7 @@ class DesktopLayout extends StatelessWidget {
               backgroundColor: ColorManager.primaryColor,
               body: Center(
                 child: Image.asset(
-                  Assets.logo3,
+                  Assets.logo3Png,
                   scale: 2.5,
                 ),
               ),
@@ -32,7 +33,7 @@ class DesktopLayout extends StatelessWidget {
               backgroundColor: ColorManager.primaryColor,
               body: Center(
                 child: Image.asset(
-                  Assets.logo3,
+                  Assets.logo3Png,
                   scale: 2.5,
                 ),
               ),

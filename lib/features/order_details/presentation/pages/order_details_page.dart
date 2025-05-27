@@ -1,9 +1,9 @@
 import 'package:delivery/core/di/di.dart';
+import 'package:delivery/core/functions/translate_order_status.dart';
 import 'package:delivery/core/resources/color_manager.dart';
+import 'package:delivery/core/resources/style_manager.dart';
 import 'package:delivery/core/utils/constants.dart';
 import 'package:delivery/core/utils/firebase_utils.dart';
-
-import 'package:delivery/core/widgets/custom_elevated_button.dart';
 import 'package:delivery/core/widgets/custom_sliver_app_bar.dart';
 import 'package:delivery/features/home/data/models/response/get_orders_delivery.dart';
 import 'package:delivery/features/order_details/presentation/bloc/order_details_cubit.dart';
@@ -18,9 +18,11 @@ class OrderDetailsPage extends StatefulWidget {
     super.key,
     required this.orderId,
     required this.currentStageIndex,
+    required this.order,
   });
 
   final String orderId;
+  final Orders order;
   final int currentStageIndex;
 
   @override
@@ -49,7 +51,13 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
             Expanded(
               child: CustomScrollView(
                 slivers: [
-                  CustomSliverAppBar(title: 'تفاصيل الطلبية'),
+                  CustomSliverAppBar(title: 'تفاصيل الطلبية',
+
+                    showLogo: true
+
+                    ,onBackTap:(){
+                    Navigator.pop(context);
+                  } ,),
                   SliverToBoxAdapter(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -75,8 +83,11 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: const Center(
+                              child: CircularProgressIndicator(color: ColorManager.primaryColor,),
+                            ),
                           );
                         } else if (snapshot.hasError) {
                           return Center(
@@ -87,9 +98,26 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                         }
 
                         final order = snapshot.data;
-                        return OrderDetailsBody(order: order);
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 16),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                translateOrderStatus(order?.status??'')  ,
+                                style: getSemiBoldStyle(
+                                  color: ColorManager.primaryColor,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
                       },
                     ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: OrderDetailsBody(order: widget.order),
                   ),
                 ],
               ),
@@ -110,25 +138,26 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                 String formattedTime = DateFormat(
                   'yyyy-MM-dd HH:mm:ss',
                 ).format(now);
-                final existingOrder = await FirebaseUtils.getOrderById(widget.orderId);
-
+                final existingOrder = await FirebaseUtils.getOrderById(
+                  widget.orderId,
+                );
 
                 String acceptedAtTime = existingOrder?.acceptedAt ?? '';
                 String preparingAtTime = existingOrder?.preparingAt ?? '';
                 String outDeliveryAtTime = existingOrder?.outDeliveryAt ?? '';
 
-                if(currentStageIndex == 0){
-                  acceptedAtTime=DateFormat(
+                if (currentStageIndex == 0) {
+                  acceptedAtTime = DateFormat(
                     'yyyy-MM-dd HH:mm:ss',
                   ).format(now);
                 }
-                if(currentStageIndex == 1){
-                  preparingAtTime=DateFormat(
+                if (currentStageIndex == 1) {
+                  preparingAtTime = DateFormat(
                     'yyyy-MM-dd HH:mm:ss',
                   ).format(now);
                 }
-                if(currentStageIndex == 2){
-                  outDeliveryAtTime=DateFormat(
+                if (currentStageIndex == 2) {
+                  outDeliveryAtTime = DateFormat(
                     'yyyy-MM-dd HH:mm:ss',
                   ).format(now);
                 }
@@ -137,11 +166,11 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                 await FirebaseUtils.updateOrderState(
                   orderId: widget.orderId,
                   updatedData: OrderStateModel(
-                    acceptedAt:acceptedAtTime ,
+                    acceptedAt: acceptedAtTime,
                     preparingAt: preparingAtTime,
-                    outDeliveryAt:outDeliveryAtTime ,
+                    outDeliveryAt: outDeliveryAtTime,
                     updatedAt: formattedTime,
-                    status: Constants.orderStages[currentStageIndex ],
+                    status: Constants.orderStages[currentStageIndex],
                   ),
                 );
               },
@@ -152,5 +181,3 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
     );
   }
 }
-
-
