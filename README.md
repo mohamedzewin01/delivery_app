@@ -29,4 +29,3 @@ This project is built using Flutter and serves as a foundation for a delivery tr
 1. Clone the repository:
    ```bash
    git clone https://github.com/yourusername/delivery-app.git
-
