@@ -5,6 +5,11 @@ A Flutter application designed to handle delivery orders with real-time synchron
 ## Overview
 
 This app allows delivery drivers to receive incoming orders, accept them, and then follow a delivery sequence that leads to the customer. The progress of the delivery is synchronized in real-time with the customer's app, allowing both parties to track the order status simultaneously.
+![1](https://github.com/user-attachments/assets/2aad7460-77f0-4300-bb3c-5d3e0f00372a)
+![2](https://github.com/user-attachments/assets/147eb606-fedf-4d1b-b618-1102fd8e7009)
+![3](https://github.com/user-attachments/assets/0eda5cce-9cb6-416f-9e14-a88a27cbb02b)
+![4](https://github.com/user-attachments/assets/e5f55af5-20ae-4dc8-81d7-bb55784172c6)
+
 
 ## Features
 
