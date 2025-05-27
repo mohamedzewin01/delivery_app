@@ -61,7 +61,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void movedToNextPage() {
     Future.delayed(const Duration(seconds: 1), () {
       if (mounted) {
-        Navigator.pushReplacementNamed(context, RoutesManager.layout);
+        Navigator.pushReplacementNamed(context, RoutesManager. authScreen);
       }
     });
   }
