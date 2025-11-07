@@ -59,17 +59,6 @@ import '../../features/orders_completed/domain/useCases/orders_completed_useCase
     as _i166;
 import '../../features/orders_completed/presentation/bloc/orders_completed_cubit.dart'
     as _i977;
-import '../../features/test/data/datasources/test_datasource_repo.dart'
-    as _i539;
-import '../../features/test/data/datasources/test_datasource_repo_impl.dart'
-    as _i28;
-import '../../features/test/data/repositories_impl/test_repo_impl.dart'
-    as _i515;
-import '../../features/test/domain/repositories/test_repository.dart' as _i403;
-import '../../features/test/domain/usecases/test_usecase_repo.dart' as _i53;
-import '../../features/test/domain/usecases/test_usecase_repo_impl.dart'
-    as _i352;
-import '../../features/test/presentation/bloc/test_cubit.dart' as _i190;
 import '../api/api_manager/api_manager.dart' as _i680;
 import '../api/dio_module.dart' as _i784;
 
@@ -81,10 +70,8 @@ extension GetItInjectableX on _i174.GetIt {
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final dioModule = _$DioModule();
-    gh.factory<_i190.TestCubit>(() => _i190.TestCubit());
     gh.lazySingleton<_i361.Dio>(() => dioModule.providerDio());
     gh.factory<_i680.ApiService>(() => _i680.ApiService(gh<_i361.Dio>()));
-    gh.factory<_i403.TestRepository>(() => _i515.TestRepositoryImpl());
     gh.factory<_i435.OrderDetailsDatasourceRepo>(
       () => _i585.OrderDetailsDatasourceRepoImpl(gh<_i680.ApiService>()),
     );
@@ -102,14 +89,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i489.OrderDetailsUseCaseRepo>(
       () => _i719.OrderDetailsUseCase(gh<_i304.OrderDetailsRepository>()),
     );
-    gh.factory<_i539.TestDatasourceRepo>(
-      () => _i28.TestDatasourceRepoImpl(gh<_i680.ApiService>()),
-    );
     gh.factory<_i282.OrdersCompletedDatasourceRepo>(
       () => _i1066.OrdersCompletedDatasourceRepoImpl(gh<_i680.ApiService>()),
-    );
-    gh.factory<_i53.TestUseCaseRepo>(
-      () => _i352.TestUseCase(gh<_i403.TestRepository>()),
     );
     gh.factory<_i69.AuthDataSourcesRepo>(
       () => _i552.AuthDataSourcesRpoImpl(gh<_i680.ApiService>()),

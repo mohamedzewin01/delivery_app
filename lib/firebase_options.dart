@@ -41,48 +41,49 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyC_xIYTntdvcwTfz87HNOFhK7IiaE9VbB0',
-    appId: '1:114265146280:web:f7ea44ef173203ccf3939d',
-    messagingSenderId: '114265146280',
-    projectId: 'fkmarket-83c01',
-    authDomain: 'fkmarket-83c01.firebaseapp.com',
-    storageBucket: 'fkmarket-83c01.firebasestorage.app',
-    measurementId: 'G-YYZQK6SJP8',
+    apiKey: 'AIzaSyAbYpYQbkXuYZR-7yHq5WmwbG5OblPOtCU',
+    appId: '1:191929514173:web:51219f9be2aef7035ddfd4',
+    messagingSenderId: '191929514173',
+    projectId: 'supermarket-amjad',
+    authDomain: 'supermarket-amjad.firebaseapp.com',
+    storageBucket: 'supermarket-amjad.firebasestorage.app',
+    measurementId: 'G-E73SX6TBHX',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyC-9OLMkBJgJvjxYUyHm_xalr7bNETG4RE',
-    appId: '1:114265146280:android:6b2c3b381ead6681f3939d',
-    messagingSenderId: '114265146280',
-    projectId: 'fkmarket-83c01',
-    storageBucket: 'fkmarket-83c01.firebasestorage.app',
+    apiKey: 'AIzaSyC7CeU16aou5DvGV2Lm9U7ZRZuta-LGa2Q',
+    appId: '1:191929514173:android:1d4d2117cff1f2f65ddfd4',
+    messagingSenderId: '191929514173',
+    projectId: 'supermarket-amjad',
+    storageBucket: 'supermarket-amjad.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDWIcGiSbiEK5dUUApaIjKnRA9bZpMztNc',
-    appId: '1:114265146280:ios:8400196e99431806f3939d',
-    messagingSenderId: '114265146280',
-    projectId: 'fkmarket-83c01',
-    storageBucket: 'fkmarket-83c01.firebasestorage.app',
+    apiKey: 'AIzaSyBUkbhTbT70mZvtccQfZbZZB6TbdEJNqW8',
+    appId: '1:191929514173:ios:0c9e96968827fd225ddfd4',
+    messagingSenderId: '191929514173',
+    projectId: 'supermarket-amjad',
+    storageBucket: 'supermarket-amjad.firebasestorage.app',
     iosBundleId: 'com.example.delivery',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDWIcGiSbiEK5dUUApaIjKnRA9bZpMztNc',
-    appId: '1:114265146280:ios:8400196e99431806f3939d',
-    messagingSenderId: '114265146280',
-    projectId: 'fkmarket-83c01',
-    storageBucket: 'fkmarket-83c01.firebasestorage.app',
+    apiKey: 'AIzaSyBUkbhTbT70mZvtccQfZbZZB6TbdEJNqW8',
+    appId: '1:191929514173:ios:0c9e96968827fd225ddfd4',
+    messagingSenderId: '191929514173',
+    projectId: 'supermarket-amjad',
+    storageBucket: 'supermarket-amjad.firebasestorage.app',
     iosBundleId: 'com.example.delivery',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyC_xIYTntdvcwTfz87HNOFhK7IiaE9VbB0',
-    appId: '1:114265146280:web:9a2a381fb8c127dbf3939d',
-    messagingSenderId: '114265146280',
-    projectId: 'fkmarket-83c01',
-    authDomain: 'fkmarket-83c01.firebaseapp.com',
-    storageBucket: 'fkmarket-83c01.firebasestorage.app',
-    measurementId: 'G-P9MKN4TJGM',
+    apiKey: 'AIzaSyAbYpYQbkXuYZR-7yHq5WmwbG5OblPOtCU',
+    appId: '1:191929514173:web:e5093511d7e70d835ddfd4',
+    messagingSenderId: '191929514173',
+    projectId: 'supermarket-amjad',
+    authDomain: 'supermarket-amjad.firebaseapp.com',
+    storageBucket: 'supermarket-amjad.firebasestorage.app',
+    measurementId: 'G-1GGZ74ZH27',
   );
+
 }
