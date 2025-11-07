@@ -1,5 +1,6 @@
 
 
+import 'package:delivery/core/utils/notification_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,6 +21,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await NotificationService().initialize();
   await CacheService.cacheInitialization();
   configureDependencies();
   Bloc.observer = MyBlocObserver();
