@@ -6,9 +6,10 @@ class ApiConstants {
   /// TODO: change v1 to v2  and change location image to upload in v2
 
   // static const String home = "home/home_view_v2";
-
+  static const String loginDriver = "drivers/login_driver.php";
   static const String orderDelivery = "orders/order_delivery.php";
   static const String orderStatus = "orders/order_status";
   static const String ordersCompleted = "orders/get_delivery_completed";
+
 
 }

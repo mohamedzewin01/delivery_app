@@ -1,6 +1,6 @@
 
 
-import 'package:delivery/core/utils/notification_service.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +9,6 @@ import 'firebase_options.dart';
 import 'l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:delivery/core/resources/routes_manager.dart';
-
 import 'core/di/di.dart';
 import 'core/utils/cashed_data_shared_preferences.dart';
 import 'core/utils/my_bloc_observer.dart';

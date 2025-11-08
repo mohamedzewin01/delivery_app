@@ -1,4 +1,6 @@
 import 'package:delivery/core/api/api_constants.dart';
+import 'package:delivery/features/auth/data/models/request/auth_request.dart';
+import 'package:delivery/features/auth/data/models/response/auth_model.dart';
 import 'package:delivery/features/home/data/models/response/get_orders_delivery.dart';
 import 'package:delivery/features/order_details/data/models/request/updata_status_request.dart';
 import 'package:delivery/features/order_details/data/models/response/update_status_dto.dart';
@@ -17,6 +19,11 @@ part 'api_manager.g.dart';
 abstract class ApiService {
   @FactoryMethod()
   factory ApiService(Dio dio) = _ApiService;
+
+  @POST(ApiConstants.loginDriver)
+  Future<AuthModel?> loginDriver(
+      @Body() AuthRequest loginDriverRequest
+      );
 
   @POST(ApiConstants.orderDelivery)
   Future<GetOrdersDelivery?> getOrdersDelivery();

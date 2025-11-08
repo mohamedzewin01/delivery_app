@@ -2,6 +2,7 @@
 
 import 'package:delivery/core/common/api_result.dart';
 import 'package:delivery/features/auth/data/data_sources/auth_data_sources_repo.dart';
+import 'package:delivery/features/auth/data/models/request/auth_request.dart';
 
 import 'package:delivery/features/auth/domain/entities/auth_entities.dart';
 import 'package:delivery/features/auth/domain/repo/auth_repo.dart';
@@ -13,6 +14,11 @@ class AuthRepoImpl implements AuthRepo{
   final AuthDataSourcesRepo authDataSourcesRepo;
 
   AuthRepoImpl(this.authDataSourcesRepo);
+
+  @override
+  Future<Result<AuthSingInEntity?>> singIn(AuthRequest authRequest) {
+   return authDataSourcesRepo.singIn(authRequest);
+  }
 
 
 

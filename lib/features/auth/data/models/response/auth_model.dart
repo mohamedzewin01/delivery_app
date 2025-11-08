@@ -1,3 +1,4 @@
+import 'package:delivery/features/auth/domain/entities/auth_entities.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'auth_model.g.dart';
@@ -23,6 +24,13 @@ class AuthModel {
 
   Map<String, dynamic> toJson() {
     return _$AuthModelToJson(this);
+  }
+  AuthSingInEntity toEntity() {
+    return AuthSingInEntity(
+      status: status,
+      message: message,
+      driver: driver,
+    );
   }
 }
 
