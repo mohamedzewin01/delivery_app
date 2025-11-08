@@ -57,6 +57,7 @@ class CacheKeys {
   static const String userEmail='userEmail';
   static const String userPhone='userPhone';
   static const String isActive='isActive';
+  static const String rememberMe='rememberMe';
 }
 
  bool isActiveUser = CacheService.getData(key: CacheKeys.isActive) ?? false;

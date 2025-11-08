@@ -18,3 +18,9 @@ final class AuthFail extends AuthState {
 
   AuthFail(this.exception);
 }
+
+final class RememberMeChanged extends AuthState {
+  final bool rememberMe;
+
+  RememberMeChanged(this.rememberMe);
+}

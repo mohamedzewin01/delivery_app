@@ -1,10 +1,7 @@
-import 'package:delivery/assets_manager.dart';
-import 'package:delivery/core/common/custom_exception.dart';
+
 import 'package:delivery/core/di/di.dart';
-import 'package:delivery/core/resources/assets_manager.dart';
 import 'package:delivery/core/resources/color_manager.dart';
-import 'package:delivery/core/utils/cashed_data_shared_preferences.dart';
-import 'package:delivery/core/widgets/custom_dialog.dart';
+import 'package:delivery/core/resources/style_manager.dart';
 import 'package:delivery/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:delivery/features/auth/presentation/widgets/signIn_form_view.dart';
 
@@ -36,69 +33,104 @@ class _AuthScreenState extends State<AuthScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: BlocProvider(
-          create: (context) => viewModel,
-          child: BlocListener<AuthCubit, AuthState>(
-            listener: (context, state) {
+    final size = MediaQuery.of(context).size;
+    return Scaffold(
+      body: BlocProvider(
+        create: (context) => viewModel,
+        child: BlocListener<AuthCubit, AuthState>(
+          listener: (context, state) {
 
-            },
+          },
+          child: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.only(top: 45),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(0),
+              color: ColorManager.primaryColor,
+            ),
             child: Container(
               width: double.infinity,
-              padding: const EdgeInsets.only(top: 45),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(0),
-                color: ColorManager.primaryColor,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 4,
+                vertical: 16,
               ),
-              child: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 4,
-                  vertical: 16,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(25),
+                  topRight: Radius.circular(25),
                 ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(25),
-                    topRight: Radius.circular(25),
-                  ),
-                  color: ColorManager.white,
-                ),
-                child: CustomScrollView(
-                  slivers: [
-                    SliverToBoxAdapter(
-                      child: Padding(
-                        padding: const EdgeInsets.all(24.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Container(
-                              clipBehavior: Clip.antiAlias,
-                              padding: EdgeInsets.all(20),
-                              decoration: BoxDecoration(
-                                color: ColorManager.primaryColor,
-                                shape: BoxShape.circle,
-                              ),
+                color: ColorManager.white,
+              ),
+              child:SafeArea(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(height: size.height * 0.008),
 
-                              child: Image.asset(
-                                Assets.logo3Png,
-                                width: 100,
-                                height: 100,
-                              ),
+                      // الشعار والعنوان
+                      Hero(
+                        tag: 'app_logo',
+                        child: Text("منارة امجاد",style:
+                          getSemiBoldStyle(color: ColorManager.primaryColor,fontSize: 32),),
+                      ),
+
+                      SizedBox(height: 16),
+
+                      Text(
+                        'أهلاً بك',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: ColorManager.primaryColor,
+                          shadows: [
+                            Shadow(
+                              color: Colors.black.withOpacity(0.1),
+                              offset: Offset(0, 2),
+                              blurRadius: 4,
                             ),
-                            SizedBox(height: 16 ,),
-                               SignInForm(viewModel: viewModel),
                           ],
                         ),
                       ),
-                    ),
-                  ],
+
+                      SizedBox(height: 8),
+
+                      Text(
+                        'سجل دخولك للمتابعة',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color:ColorManager.primaryColor.withOpacity(0.9),
+                        ),
+                      ),
+
+                      SizedBox(height: size.height * 0.008),
+
+                      // نموذج تسجيل الدخول
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 20),
+                        padding: EdgeInsets.all(24),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(25),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              blurRadius: 30,
+                              offset: Offset(0, 15),
+                            ),
+                          ],
+                        ),
+                        child: SignInForm(viewModel: viewModel),
+                      ),
+
+                      SizedBox(height: 30),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
         ),
-      ),
-    );
+      ),);
+
   }
 }

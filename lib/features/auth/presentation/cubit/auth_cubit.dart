@@ -17,6 +17,15 @@ class AuthCubit extends Cubit<AuthState> {
 
   TextEditingController loginController = TextEditingController();
   TextEditingController passwordSignInController = TextEditingController();
+  bool rememberMe = false;
+
+
+  void toggleRememberMe(bool value) {
+    rememberMe = value;
+    emit(RememberMeChanged(value));
+  }
+
+
 
   Future<void> signIn() async {
     emit(AuthLoading());
