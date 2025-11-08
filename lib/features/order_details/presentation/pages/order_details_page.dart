@@ -2,6 +2,7 @@ import 'package:delivery/core/di/di.dart';
 import 'package:delivery/core/functions/translate_order_status.dart';
 import 'package:delivery/core/resources/color_manager.dart';
 import 'package:delivery/core/resources/style_manager.dart';
+import 'package:delivery/core/utils/cashed_data_shared_preferences.dart';
 import 'package:delivery/core/utils/constants.dart';
 import 'package:delivery/core/utils/firebase_utils.dart';
 import 'package:delivery/core/widgets/custom_sliver_app_bar.dart';
@@ -130,9 +131,12 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                 if (currentStageIndex >= 4) {
                   Navigator.pop(context);
                 }
+
+
                 await viewModel.updateStatus(
                   status: Constants.orderStages[currentStageIndex + 1],
                   orderId: int.parse(widget.orderId),
+
                 );
                 DateTime now = DateTime.now();
                 String formattedTime = DateFormat(

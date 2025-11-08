@@ -29,6 +29,32 @@ class OrderCompletedDto {
     );
   }
 }
+@JsonSerializable()
+class User {
+  @JsonKey(name: "id")
+  final int? id;
+  @JsonKey(name: "name")
+  final String? name;
+  @JsonKey(name: "phone")
+  final String? phone;
+  @JsonKey(name: "email")
+  final String? email;
+
+  User ({
+    this.id,
+    this.name,
+    this.phone,
+    this.email,
+  });
+
+  factory User.fromJson(Map<String, dynamic> json) {
+    return _$UserFromJson(json);
+  }
+
+  Map<String, dynamic> toJson() {
+    return _$UserToJson(this);
+  }
+}
 
 @JsonSerializable()
 class OrdersCompleted {
@@ -50,6 +76,8 @@ class OrdersCompleted {
   final String? createdAt;
   @JsonKey(name: "updated_at")
   final String? updatedAt;
+  @JsonKey(name: "user")
+  final User? user;
   @JsonKey(name: "order_items")
   final List<OrderItems>? orderItems;
 
@@ -64,6 +92,7 @@ class OrdersCompleted {
     this.createdAt,
     this.updatedAt,
     this.orderItems,
+    this.user,
   });
 
   factory OrdersCompleted.fromJson(Map<String, dynamic> json) {

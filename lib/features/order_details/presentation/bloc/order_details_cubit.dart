@@ -17,6 +17,7 @@ class OrderDetailsCubit extends Cubit<OrderDetailsState> {
   Future<void> updateStatus({
     required String status,
     required int orderId,
+
   }) async {
     emit(OrderDetailsLoading());
     final result = await _orderDetailsUseCaseRepo.updateStatus(

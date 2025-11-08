@@ -1,5 +1,7 @@
 import 'package:delivery/core/api/api_extentions.dart';
 import 'package:delivery/core/common/api_result.dart';
+import 'package:delivery/core/utils/cashed_data_shared_preferences.dart';
+import 'package:delivery/features/orders_completed/data/models/request/order_completed_request.dart';
 
 import 'package:delivery/features/orders_completed/domain/entities/order_completed_entities.dart';
 
@@ -15,7 +17,8 @@ class OrdersCompletedDatasourceRepoImpl implements OrdersCompletedDatasourceRepo
   @override
   Future<Result<OrderCompletedEntity?>> getOrdersCompleted() {
    return executeApi(()async{
-     var response = await apiService.getOrdersCompleted();
+     int driversId = CacheService.getData(key: CacheKeys.driversId)??-1;
+     var response = await apiService.getOrdersCompleted(OrderCompletedRequest(driversId:driversId ));
      return response?.toOrderCompletedEntity();
    });
   }

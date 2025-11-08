@@ -1,5 +1,6 @@
 
 import 'package:delivery/core/resources/color_manager.dart';
+import 'package:delivery/core/resources/routes_manager.dart';
 import 'package:delivery/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -34,35 +35,38 @@ class _SignInFormState extends State<SignInForm> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthCubit, AuthState>(
-      builder: (context, state) {
-        return Form(
-          key: _formKey,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              // حقل رقم الجوال
-              _buildPhoneField(),
-
-              SizedBox(height: 20),
-
-              // حقل كلمة المرور
-              _buildPasswordField(),
-
-              SizedBox(height: 16),
-
-              // خيار تذكرني
-              _buildRememberMeCheckbox(),
-
-              SizedBox(height: 24),
-
-              // زر تسجيل الدخول
-              _buildLoginButton(),
-            ],
-          ),
-        );
+    return BlocListener<AuthCubit, AuthState>(
+      listener: (context, state) {
+        if (state is AuthSuccess) {
+          Navigator.pushReplacementNamed(context, RoutesManager.layout);
+        }
       },
+      child:Form(
+        key: _formKey,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // حقل رقم الجوال
+            _buildPhoneField(),
+
+            SizedBox(height: 20),
+
+            // حقل كلمة المرور
+            _buildPasswordField(),
+
+            SizedBox(height: 16),
+
+            // خيار تذكرني
+            _buildRememberMeCheckbox(),
+
+            SizedBox(height: 24),
+
+            // زر تسجيل الدخول
+            _buildLoginButton(),
+          ],
+        ),
+      )
     );
   }
 

@@ -678,15 +678,16 @@
 import 'dart:async';
 import 'package:delivery/core/di/di.dart';
 import 'package:delivery/core/resources/color_manager.dart';
+import 'package:delivery/core/resources/routes_manager.dart';
 import 'package:delivery/core/resources/style_manager.dart';
-import 'package:delivery/core/widgets/custom_app_bar.dart';
+import 'package:delivery/core/utils/cashed_data_shared_preferences.dart';
 import 'package:delivery/features/home/data/models/response/get_orders_delivery.dart';
 import 'package:delivery/features/home/presentation/cubit/home_cubit.dart';
 import 'package:delivery/features/home/presentation/widgets/order_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:audioplayers/audioplayers.dart';  // إضافة المكتبة
+import 'package:audioplayers/audioplayers.dart'; // إضافة المكتبة
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -695,7 +696,8 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
   late HomeCubit viewModel;
   Timer? _autoRefreshTimer;
   DateTime? _lastUpdateTime;
@@ -757,12 +759,16 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   Future<void> _checkForNewOrders(List<Orders> currentOrders) async {
     if (_previousOrderIds.isEmpty) {
       // أول مرة - حفظ الطلبات الحالية فقط
-      _previousOrderIds = currentOrders.map((o) => o.idOrder.toString() ?? '').toList();
+      _previousOrderIds = currentOrders
+          .map((o) => o.idOrder.toString() ?? '')
+          .toList();
       return;
     }
 
     // البحث عن طلبات جديدة
-    List<String> currentOrderIds = currentOrders.map((o) => o.idOrder.toString() ?? '').toList();
+    List<String> currentOrderIds = currentOrders
+        .map((o) => o.idOrder.toString() ?? '')
+        .toList();
     List<String> newOrderIds = currentOrderIds
         .where((id) => !_previousOrderIds.contains(id))
         .toList();
@@ -807,8 +813,10 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       await _audioPlayer.play(AssetSource('sounds/notification1.wav'));
 
       // أو استخدام صوت النظام (بديل)
-      await _audioPlayer.play(AssetSource('sounds/notification1.wav'),
-        mode: PlayerMode.lowLatency);
+      await _audioPlayer.play(
+        AssetSource('sounds/notification1.wav'),
+        mode: PlayerMode.lowLatency,
+      );
     } catch (e) {
       print('خطأ في تشغيل الصوت: $e');
     }
@@ -833,7 +841,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   void dispose() {
     _autoRefreshTimer?.cancel();
     _pulseController.dispose();
-    _audioPlayer.dispose();  // تنظيف مشغل الصوت
+    _audioPlayer.dispose(); // تنظيف مشغل الصوت
     super.dispose();
   }
 
@@ -900,7 +908,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                   const SizedBox(width: 15),
                                   Expanded(
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           'منارة أمجاد',
@@ -912,7 +921,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                         Text(
                                           'إدارة الطلبات',
                                           style: getRegularStyle(
-                                            color: Colors.white.withOpacity(0.9),
+                                            color: Colors.white.withOpacity(
+                                              0.9,
+                                            ),
                                             fontSize: 14,
                                           ),
                                         ),
@@ -924,27 +935,36 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                     animation: _pulseAnimation,
                                     builder: (context, child) {
                                       return Transform.scale(
-                                        scale: _isAutoRefreshing ? _pulseAnimation.value : 1.0,
+                                        scale: _isAutoRefreshing
+                                            ? _pulseAnimation.value
+                                            : 1.0,
                                         child: Container(
                                           padding: const EdgeInsets.all(8),
                                           decoration: BoxDecoration(
-                                            color: Colors.white.withOpacity(_isAutoRefreshing ? 0.3 : 0.2),
-                                            borderRadius: BorderRadius.circular(10),
+                                            color: Colors.white.withOpacity(
+                                              _isAutoRefreshing ? 0.3 : 0.2,
+                                            ),
+                                            borderRadius: BorderRadius.circular(
+                                              10,
+                                            ),
                                           ),
                                           child: _isAutoRefreshing
                                               ? const SizedBox(
-                                            width: 20,
-                                            height: 20,
-                                            child: CircularProgressIndicator(
-                                              strokeWidth: 2,
-                                              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                                            ),
-                                          )
+                                                  width: 20,
+                                                  height: 20,
+                                                  child: CircularProgressIndicator(
+                                                    strokeWidth: 2,
+                                                    valueColor:
+                                                        AlwaysStoppedAnimation<
+                                                          Color
+                                                        >(Colors.white),
+                                                  ),
+                                                )
                                               : const Icon(
-                                            Icons.sync,
-                                            color: Colors.white,
-                                            size: 20,
-                                          ),
+                                                Icons.sync,
+                                                color: Colors.white,
+                                                size: 20,
+                                              ),
                                         ),
                                       );
                                     },
@@ -954,22 +974,25 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                               const SizedBox(height: 10),
                               Row(
                                 children: [
-                                  Icon(
-                                    Icons.access_time_rounded,
-                                    color: Colors.white.withOpacity(0.8),
-                                    size: 14,
-                                  ),
-                                  const SizedBox(width: 5),
-                                  Text(
-                                    'آخر تحديث: ${_getTimeAgo()}',
-                                    style: getRegularStyle(
-                                      color: Colors.white.withOpacity(0.9),
-                                      fontSize: 12,
-                                    ),
-                                  ),
+                                  // Icon(
+                                  //   Icons.access_time_rounded,
+                                  //   color: Colors.white.withOpacity(0.8),
+                                  //   size: 14,
+                                  // ),
+                                  // const SizedBox(width: 5),
+                                  // Text(
+                                  //   'آخر تحديث: ${_getTimeAgo()}',
+                                  //   style: getRegularStyle(
+                                  //     color: Colors.white.withOpacity(0.9),
+                                  //     fontSize: 12,
+                                  //   ),
+                                  // ),
                                   const SizedBox(width: 15),
                                   Container(
-                                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 6,
+                                      vertical: 2,
+                                    ),
                                     decoration: BoxDecoration(
                                       color: Colors.white.withOpacity(0.2),
                                       borderRadius: BorderRadius.circular(20),
@@ -985,11 +1008,36 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                         Text(
                                           'تلقائي 30 ثانية',
                                           style: getRegularStyle(
-                                            color: Colors.white.withOpacity(0.9),
+                                            color: Colors.white.withOpacity(
+                                              0.9,
+                                            ),
                                             fontSize: 11,
                                           ),
                                         ),
                                       ],
+                                    ),
+                                  ),
+                                  Expanded(child: const SizedBox(width: 15)),
+                                  Container(
+                                    // padding: const EdgeInsets.all(8),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white.withOpacity(
+                                        _isAutoRefreshing ? 0.3 : 0.2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(
+                                        10,
+                                      ),
+                                    ),
+                                    child: IconButton(
+                                      icon: Icon(
+                                        Icons.exit_to_app,
+                                        color: Colors.white,
+                                        size: 18,
+                                      ),
+                                      onPressed: () {
+                                        CacheService.clearItems();
+                                        Navigator.pushReplacementNamed(context,RoutesManager.splashScreen );
+                                      },
                                     ),
                                   ),
                                 ],
@@ -1006,24 +1054,30 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 BlocBuilder<HomeCubit, HomeState>(
                   builder: (context, state) {
                     if (state is HomeSuccess) {
-                      List<Orders> orders = state.homeEntity?.orders?.reversed.toList() ?? [];
+                      List<Orders> orders =
+                          state.homeEntity?.orders?.reversed.toList() ?? [];
 
                       // التحقق من الطلبات الجديدة
                       _checkForNewOrders(orders);
 
                       if (orders.isEmpty) {
-                        return SliverFillRemaining(
-                          child: _buildEmptyState(),
-                        );
+                        return SliverFillRemaining(child: _buildEmptyState());
                       }
 
-                      int pendingOrders = orders.where((o) => o.status == 'Pending').length;
-                      int inProgressOrders = orders.where((o) =>
-                      o.status == 'Order Accepted' ||
-                          o.status == 'Preparing' ||
-                          o.status == 'Out for Delivery'
-                      ).length;
-                      int completedOrders = orders.where((o) => o.status == 'Delivered').length;
+                      int pendingOrders = orders
+                          .where((o) => o.status == 'Pending')
+                          .length;
+                      int inProgressOrders = orders
+                          .where(
+                            (o) =>
+                                o.status == 'Order Accepted' ||
+                                o.status == 'Preparing' ||
+                                o.status == 'Out for Delivery',
+                          )
+                          .length;
+                      int completedOrders = orders
+                          .where((o) => o.status == 'Delivered')
+                          .length;
 
                       return SliverList(
                         delegate: SliverChildListDelegate([
@@ -1050,9 +1104,13 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                                   ),
                                 ),
                                 Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 12,
+                                    vertical: 6,
+                                  ),
                                   decoration: BoxDecoration(
-                                    color: ColorManager.primaryColor.withOpacity(0.1),
+                                    color: ColorManager.primaryColor
+                                        .withOpacity(0.1),
                                     borderRadius: BorderRadius.circular(20),
                                   ),
                                   child: Text(
@@ -1068,21 +1126,25 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                           ),
 
                           // قائمة الطلبات المحسنة
-                          ...orders.map((order) => ImprovedOrderCard(
-                            order: order,
-                            viewModel: viewModel,
-                          )).toList(),
+                          ...orders
+                              .map(
+                                (order) => ImprovedOrderCard(
+                                  order: order,
+                                  viewModel: viewModel,
+                                ),
+                              )
+                              .toList(),
 
                           const SizedBox(height: 100),
                         ]),
                       );
                     } else if (state is HomeLoading) {
-                      return SliverFillRemaining(
-                        child: _buildLoadingState(),
-                      );
+                      return SliverFillRemaining(child: _buildLoadingState());
                     } else if (state is HomeFail) {
                       return SliverFillRemaining(
-                        child: _buildErrorState(state.exception.toString() ?? 'حدث خطأ'),
+                        child: _buildErrorState(
+                          state.exception.toString() ?? 'حدث خطأ',
+                        ),
                       );
                     }
 
@@ -1100,12 +1162,12 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   }
 
   Widget _buildStatsCard(
-      BuildContext context, {
-        required int total,
-        required int pending,
-        required int inProgress,
-        required int completed,
-      }) {
+    BuildContext context, {
+    required int total,
+    required int pending,
+    required int inProgress,
+    required int completed,
+  }) {
     return Container(
       margin: const EdgeInsets.all(20),
       padding: const EdgeInsets.all(20),
@@ -1132,10 +1194,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               const SizedBox(width: 10),
               Text(
                 'إحصائيات سريعة',
-                style: getBoldStyle(
-                  color: ColorManager.black,
-                  fontSize: 18,
-                ),
+                style: getBoldStyle(color: ColorManager.black, fontSize: 18),
               ),
             ],
           ),
@@ -1182,21 +1241,12 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         children: [
           Icon(icon, color: color, size: 28),
           const SizedBox(height: 8),
-          Text(
-            value,
-            style: getBoldStyle(
-              color: color,
-              fontSize: 24,
-            ),
-          ),
+          Text(value, style: getBoldStyle(color: color, fontSize: 24)),
           const SizedBox(height: 4),
           Text(
             label,
             textAlign: TextAlign.center,
-            style: getRegularStyle(
-              color: ColorManager.grey,
-              fontSize: 11,
-            ),
+            style: getRegularStyle(color: ColorManager.grey, fontSize: 11),
           ),
         ],
       ),
@@ -1208,16 +1258,11 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CircularProgressIndicator(
-            color: ColorManager.primaryColor,
-          ),
+          CircularProgressIndicator(color: ColorManager.primaryColor),
           const SizedBox(height: 20),
           Text(
             'جاري تحميل الطلبات...',
-            style: getSemiBoldStyle(
-              color: ColorManager.grey,
-              fontSize: 16,
-            ),
+            style: getSemiBoldStyle(color: ColorManager.grey, fontSize: 16),
           ),
         ],
       ),
@@ -1237,19 +1282,13 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           const SizedBox(height: 20),
           Text(
             'لا توجد طلبات حالياً',
-            style: getBoldStyle(
-              color: ColorManager.black,
-              fontSize: 20,
-            ),
+            style: getBoldStyle(color: ColorManager.black, fontSize: 20),
           ),
           const SizedBox(height: 10),
           Text(
             'سيتم تحديث الطلبات تلقائياً كل 30 ثانية',
             textAlign: TextAlign.center,
-            style: getRegularStyle(
-              color: ColorManager.grey,
-              fontSize: 14,
-            ),
+            style: getRegularStyle(color: ColorManager.grey, fontSize: 14),
           ),
         ],
       ),
@@ -1269,10 +1308,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           const SizedBox(height: 20),
           Text(
             'لا يوجد طلبات حاليا',
-            style: getBoldStyle(
-              color: ColorManager.black,
-              fontSize: 20,
-            ),
+            style: getBoldStyle(color: ColorManager.black, fontSize: 20),
           ),
           const SizedBox(height: 20),
           ElevatedButton.icon(

@@ -60,6 +60,8 @@ class Orders {
   final String? preparingAt;
   @JsonKey(name: "outDeliveryAt")
   final String? outDeliveryAt;
+  @JsonKey(name: "driver")
+  final Driver? driver;
 
 
   Orders({
@@ -78,7 +80,8 @@ class Orders {
     this.delivery,
     this.acceptedAt,
     this.preparingAt,
-    this.outDeliveryAt
+    this.outDeliveryAt,
+    this.driver,
   });
 
   factory Orders.fromJson(Map<String, dynamic> json) {
@@ -249,3 +252,51 @@ class Delivery {
       long: long,
       idDelivery: idDelivery);
 }
+@JsonSerializable()
+class Driver {
+  @JsonKey(name: "id")
+  final int? id;
+  @JsonKey(name: "full_name")
+  final String? fullName;
+  @JsonKey(name: "phone")
+  final String? phone;
+  @JsonKey(name: "email")
+  final String? email;
+  @JsonKey(name: "license_number")
+  final String? licenseNumber;
+  @JsonKey(name: "vehicle_plate")
+  final String? vehiclePlate;
+  @JsonKey(name: "is_active")
+  final int? isActive;
+  @JsonKey(name: "last_login")
+  final String? lastLogin;
+  @JsonKey(name: "created_at")
+  final String? createdAt;
+  @JsonKey(name: "updated_at")
+  final String? updatedAt;
+
+  Driver ({
+    this.id,
+    this.fullName,
+    this.phone,
+    this.email,
+    this.licenseNumber,
+    this.vehiclePlate,
+    this.isActive,
+    this.lastLogin,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  factory Driver.fromJson(Map<String, dynamic> json) {
+    return _$DriverFromJson(json);
+  }
+
+  Map<String, dynamic> toJson() {
+    return _$DriverToJson(this);
+  }
+}
+
+
+
+

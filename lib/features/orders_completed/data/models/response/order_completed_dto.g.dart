@@ -17,6 +17,20 @@ OrderCompletedDto _$OrderCompletedDtoFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$OrderCompletedDtoToJson(OrderCompletedDto instance) =>
     <String, dynamic>{'message': instance.message, 'orders': instance.orders};
 
+User _$UserFromJson(Map<String, dynamic> json) => User(
+  id: (json['id'] as num?)?.toInt(),
+  name: json['name'] as String?,
+  phone: json['phone'] as String?,
+  email: json['email'] as String?,
+);
+
+Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
+  'id': instance.id,
+  'name': instance.name,
+  'phone': instance.phone,
+  'email': instance.email,
+};
+
 OrdersCompleted _$OrdersCompletedFromJson(Map<String, dynamic> json) =>
     OrdersCompleted(
       orderNumber: json['order_number'] as String?,
@@ -31,6 +45,9 @@ OrdersCompleted _$OrdersCompletedFromJson(Map<String, dynamic> json) =>
       orderItems: (json['order_items'] as List<dynamic>?)
           ?.map((e) => OrderItems.fromJson(e as Map<String, dynamic>))
           .toList(),
+      user: json['user'] == null
+          ? null
+          : User.fromJson(json['user'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$OrdersCompletedToJson(OrdersCompleted instance) =>
@@ -44,6 +61,7 @@ Map<String, dynamic> _$OrdersCompletedToJson(OrdersCompleted instance) =>
       'is_active': instance.isActive,
       'created_at': instance.createdAt,
       'updated_at': instance.updatedAt,
+      'user': instance.user,
       'order_items': instance.orderItems,
     };
 

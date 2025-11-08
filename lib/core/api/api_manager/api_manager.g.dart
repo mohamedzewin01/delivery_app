@@ -48,11 +48,14 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<GetOrdersDelivery?> getOrdersDelivery() async {
+  Future<GetOrdersDelivery?> getOrdersDelivery(
+    GetOrdersDeliveryRequest getOrdersDeliveryRequest,
+  ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _data = <String, dynamic>{};
+    _data.addAll(getOrdersDeliveryRequest.toJson());
     final _options = _setStreamType<GetOrdersDelivery>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
@@ -109,11 +112,14 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<OrderCompletedDto?> getOrdersCompleted() async {
+  Future<OrderCompletedDto?> getOrdersCompleted(
+    OrderCompletedRequest orderCompletedRequest,
+  ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _data = <String, dynamic>{};
+    _data.addAll(orderCompletedRequest.toJson());
     final _options = _setStreamType<OrderCompletedDto>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(

@@ -8,10 +8,13 @@ class UpdateStatusRequest {
   final int? idOrder;
   @JsonKey(name: "status")
   final String? status;
+  @JsonKey(name: "drivers_id")
+  final int? driversId;
 
   UpdateStatusRequest ({
     this.idOrder,
     this.status,
+    this.driversId,
   });
 
   factory UpdateStatusRequest.fromJson(Map<String, dynamic> json) {

@@ -500,7 +500,7 @@ class OrderDetails extends StatelessWidget {
       child: Column(
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Icon(
                 Icons.receipt_long_rounded,
@@ -517,32 +517,78 @@ class OrderDetails extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 12),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  ColorManager.primaryColor,
-                  ColorManager.primaryColor.withOpacity(0.8),
-                ],
-              ),
-              borderRadius: BorderRadius.circular(12),
-              boxShadow: [
-                BoxShadow(
-                  color: ColorManager.primaryColor.withOpacity(0.3),
-                  blurRadius: 8,
-                  offset: const Offset(0, 4),
+          SizedBox(height: 8,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        ColorManager.offWhite,
+                        ColorManager.offWhite.withOpacity(0.8),
+                      ],
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: ColorManager.primaryColor.withOpacity(0.3),
+                        blurRadius: 8,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      Text(
+                        order.user?.name ?? '',
+                        style: getBoldStyle(
+                          color: ColorManager.primaryColor,
+                          fontSize: 12,
+                        ),
+                      ),
+                      Text(
+                        order.user?.phone ?? '',
+                        style: getBoldStyle(
+                          color: ColorManager.primaryColor,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ],
-            ),
-            child: Text(
-              order.orderNumber ?? '',
-              style: getBoldStyle(
-                color: Colors.white,
-                fontSize: 22,
               ),
-            ),
+              const SizedBox(width: 8),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      ColorManager.primaryColor,
+                      ColorManager.primaryColor.withOpacity(0.8),
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: ColorManager.primaryColor.withOpacity(0.3),
+                      blurRadius: 8,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Text(
+                  order.orderNumber ?? '',
+                  style: getBoldStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),

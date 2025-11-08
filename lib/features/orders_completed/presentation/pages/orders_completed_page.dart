@@ -686,6 +686,47 @@ class _CartCompletedOrderItemCardState
                     ),
 
                     const SizedBox(height: 12),
+                    Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 6,
+                          ),
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                ColorManager.offWhite.withOpacity(0.7),
+                                ColorManager.offWhite.withOpacity(0.9),
+                              ],
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(
+                                Icons.person,
+                                color: Colors.white,
+                                size: 16,
+                              ),
+                              const SizedBox(width: 6),
+                              Text(
+                                widget.cartItem.user?.name ?? '',
+                                style: getBoldStyle(
+                                  color: ColorManager.primaryColor,
+                                  fontSize: 13,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                      ],
+                    ),
+
+                    const SizedBox(height: 12),
 
                     // معلومات الطلب
                     Container(

@@ -1,5 +1,7 @@
 import 'package:delivery/core/api/api_extentions.dart';
 import 'package:delivery/core/common/api_result.dart';
+import 'package:delivery/core/utils/cashed_data_shared_preferences.dart';
+import 'package:delivery/features/home/data/models/request/get_orders_delivery_request.dart';
 import 'package:delivery/features/home/domain/entities/home_entities.dart';
 import 'package:injectable/injectable.dart';
 
@@ -15,7 +17,9 @@ class HomeDataSourceRepoImpl implements HomeDataSourceRepo {
   @override
   Future<Result<GetOrdersDeliveryEntity?>> getOrdersDelivery() {
    return executeApi(()async {
-     var response = await apiService.getOrdersDelivery();
+     int driversId = CacheService.getData(key: CacheKeys.driversId)??0;
+     var request = GetOrdersDeliveryRequest(driversId:driversId );
+     var response = await apiService.getOrdersDelivery(request);
      return response?.toGetOrdersDeliveryEntity();
    },);
   }

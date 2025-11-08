@@ -1,10 +1,12 @@
 import 'package:delivery/core/api/api_constants.dart';
 import 'package:delivery/features/auth/data/models/request/auth_request.dart';
 import 'package:delivery/features/auth/data/models/response/auth_model.dart';
+import 'package:delivery/features/home/data/models/request/get_orders_delivery_request.dart';
 import 'package:delivery/features/home/data/models/response/get_orders_delivery.dart';
 import 'package:delivery/features/order_details/data/models/request/updata_status_request.dart';
 import 'package:delivery/features/order_details/data/models/response/update_status_dto.dart';
 import 'package:delivery/features/order_details/domain/entities/order_details_entities.dart';
+import 'package:delivery/features/orders_completed/data/models/request/order_completed_request.dart';
 import 'package:delivery/features/orders_completed/data/models/response/order_completed_dto.dart';
 import 'package:dio/dio.dart';
 
@@ -26,14 +28,18 @@ abstract class ApiService {
       );
 
   @POST(ApiConstants.orderDelivery)
-  Future<GetOrdersDelivery?> getOrdersDelivery();
+  Future<GetOrdersDelivery?> getOrdersDelivery(
+      @Body() GetOrdersDeliveryRequest getOrdersDeliveryRequest
+      );
 
   @POST(ApiConstants.orderStatus)
   Future<UpdateStatusDto?> updateOrderStatus(
       @Body() UpdateStatusRequest updateStatusRequest
       );
   @POST(ApiConstants.ordersCompleted)
-  Future<OrderCompletedDto?> getOrdersCompleted();
+  Future<OrderCompletedDto?> getOrdersCompleted(
+      @Body() OrderCompletedRequest orderCompletedRequest
+      );
 }
 
 //  @MultiPart()

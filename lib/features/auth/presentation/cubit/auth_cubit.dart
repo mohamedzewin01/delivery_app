@@ -31,7 +31,7 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthLoading());
     final result = await _authUseCase.singIn(
       AuthRequest(
-        login: loginController.text,
+        phone: loginController.text,
         password: passwordSignInController.text,
       ),
     );
@@ -45,12 +45,20 @@ class AuthCubit extends Cubit<AuthState> {
               value: result.data?.driver?.fullName,
             );
             CacheService.setData(
+              key: CacheKeys.driversId,
+              value: result.data?.driver?.id,
+            );
+            CacheService.setData(
               key: CacheKeys.userPhone,
               value: result.data?.driver?.phone,
             );
             CacheService.setData(
               key: CacheKeys.userEmail,
               value: result.data?.driver?.email,
+            );
+            CacheService.setData(
+              key: CacheKeys.rememberMe,
+              value: rememberMe,
             );
 
             emit(AuthSuccess(result.data!));

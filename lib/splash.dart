@@ -5,6 +5,7 @@ import 'assets_manager.dart';
 import 'core/resources/assets_manager.dart';
 import 'core/resources/routes_manager.dart';
 import 'core/resources/style_manager.dart';
+import 'core/utils/cashed_data_shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -60,8 +61,14 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void movedToNextPage() {
     Future.delayed(const Duration(seconds: 1), () {
+      bool rememberMe = CacheService.getData(key: CacheKeys.rememberMe) ?? false;
       if (mounted) {
-        Navigator.pushReplacementNamed(context, RoutesManager. authScreen);
+        if(rememberMe){
+          Navigator.pushReplacementNamed(context, RoutesManager.layout);
+        }else{
+          Navigator.pushReplacementNamed(context, RoutesManager. authScreen);
+        }
+
       }
     });
   }
